@@ -1,0 +1,19 @@
+#include "chapter1.h"
+#include <QPaintEvent>
+#include <QPainter>
+chapter1::chapter1(QWidget *parent) : QWidget(parent)
+{
+    this->setFixedSize(1200,800);
+    setWindowTitle("第一关");
+    tower=new 
+}
+void chapter1::paintEvent(QPaintEvent *)
+
+{
+
+    QPainter painter(this);
+    QPixmap preview(":/picture/map1.png");
+    painter.drawPixmap(0,0,this->width(),this->height(),preview);
+    
+
+}

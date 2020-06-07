@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>picture/preview.jpg</file>
+        <file>picture/tower1.png</file>
+        <file>picture/tower2.png</file>
+        <file>picture/tower3.png</file>
+        <file>picture/tower4.png</file>
+        <file>picture/tower5.png</file>
+        <file>picture/tower6.png</file>
+        <file>picture/tower7.png</file>
+        <file>picture/tower8.png</file>
+        <file>picture/Untitled.png</file>
+        <file>picture/timg[2].jpg</file>
+        <file>picture/map1.png</file>
+        <file>picture/map.png</file>
+        <file>picture/BASE.png</file>
+    </qresource>
+</RCC>

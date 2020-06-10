@@ -15,7 +15,12 @@ public:
     QPoint getp();
 private:
     QPoint position;
+    QPoint center;
     QPixmap apparence;
+    int attackrange;
+    int damage;
+    int speed;
+    bool fire;
 signals:
 
 

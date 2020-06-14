@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Pos.cpp \
     basetower.cpp \
+    bullet.cpp \
     button.cpp \
     chapter.cpp \
     enemy.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Bullet.h \
     Pos.h \
     basetower.h \
     button.h \

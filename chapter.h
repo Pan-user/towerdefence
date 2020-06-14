@@ -16,6 +16,7 @@ public:
     explicit chapter(QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *);
     void load();
+    QList<enemy*> getenemy() const{return enemylist;};
 
 private:
     QList<Pos*> poslist;

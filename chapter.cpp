@@ -65,7 +65,7 @@ void chapter::load(){
 
     }
 void chapter::loadwave(){
-    enemy* enemy1=new enemy(p1,p2,":/picture/tower2.png");
+    enemy* enemy1=new enemy(p1,p2,":/picture/tower2.png",this);
     enemylist.push_back(enemy1);
     update();
     repaint();
@@ -116,9 +116,14 @@ void chapter::updatewhole(){
     test waytest;
     foreach(enemy* ene,enemylist)
     {
-        if(waytest.iftouch(ene->nowposition(),ene->endposition(),0))
+        if(waytest.iftouch(ene->nowposition(),p3,0))
+            enemylist.removeOne(ene);
+        else {
+            if(waytest.iftouch(ene->nowposition(),ene->endposition(),0))
             ene->trans(p3);
-        ene->move();
+            ene->move();
+        }
+
     }
     repaint();
 }

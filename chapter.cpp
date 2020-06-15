@@ -6,7 +6,6 @@
 #include"pos.h"
 #include<QTimer>
 #include "test.h"
-
 chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(970,600),p3(970,100)
 {
 
@@ -65,7 +64,7 @@ void chapter::load(){
 
     }
 void chapter::loadwave(){
-    enemy* enemy1=new enemy(p1,p2,":/picture/tower2.png",this);
+    enemy* enemy1=new enemy(p1,p2,":/picture/tower2.png");
     enemylist.push_back(enemy1);
     update();
     repaint();
@@ -73,13 +72,13 @@ void chapter::loadwave(){
 void chapter::set(Pos* p){
     if(p->getif())
      {
-        foreach(basetower* tow,towerlist)
+        foreach(tower1* tow,towerlist)
          if(tow->getp()==QPoint(p->px(),p->py()-10))
              towerlist.removeOne(tow);
     }
    else
     {
-     basetower* tower=new basetower(QPoint(p->px(),p->py()-10),":/picture/tower1.png");
+     tower1* tower=new tower1(QPoint(p->px(),p->py()-10),":/picture/tower1.png");
      towerlist.push_back(tower);
     }
     p->change();
@@ -109,20 +108,34 @@ void chapter::paintEvent(QPaintEvent *)
         ene->draw(&painter);
 
     }
+    foreach (Bullet* mybullet,bulltelist) {
+       mybullet->setParent(this);
+       mybullet->draw(&painter);
+    }
 
 
 }
 void chapter::updatewhole(){
-    test waytest;
+    foreach(tower1* tow,towerlist)
+    {
+        tow->get_target(enemylist);
+        if(tow->fire())
+        tow->attack(bulltelist);
+    }
+    foreach(Bullet* mybullet,bulltelist)
+    {
+       mybullet->move();
+    }
     foreach(enemy* ene,enemylist)
     {
-        if(waytest.iftouch(ene->nowposition(),p3,0))
+        if(iftouch(ene->nowposition(),p3,0)||(!ene->ifalive()))
             enemylist.removeOne(ene);
         else {
-            if(waytest.iftouch(ene->nowposition(),ene->endposition(),0))
+            if(iftouch(ene->nowposition(),ene->endposition(),0))
             ene->trans(p3);
             ene->move();
         }
+
 
     }
     repaint();

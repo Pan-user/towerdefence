@@ -24,18 +24,20 @@ SOURCES += \
     enemy.cpp \
     list.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    tower1.cpp
 
 HEADERS += \
-    Bullet.h \
     Pos.h \
     basetower.h \
+    bullet.h \
     button.h \
     chapter.h \
     enemy.h \
     list.h \
     mainwindow.h \
-    test.h
+    test.h \
+    tower1.h
 
 FORMS += \
     mainwindow.ui

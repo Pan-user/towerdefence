@@ -14,5 +14,6 @@
         <file>picture/map1.png</file>
         <file>picture/map.png</file>
         <file>picture/BASE.png</file>
+        <file>picture/bullet.png</file>
     </qresource>
 </RCC>

@@ -1,6 +1,6 @@
 #include "enemy.h"
 
-enemy::enemy(QPoint st,QPoint en,QString path,chapter* game):QObject(0),appa(path),maxHP(100),nowHP(100),thispage(game){
+enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),nowHP(100),live(true){
     this->now=st;
     this->start=st;
     this->end=en;
@@ -8,8 +8,8 @@ enemy::enemy(QPoint st,QPoint en,QString path,chapter* game):QObject(0),appa(pat
 }
 void enemy::draw(QPainter*painter) const
 {
-    //if (!live)
-       //return;
+    if (!live)
+       return;
     painter->save();
     QPoint healthPoint = now + QPoint(13 , -5);	// 绘制血条
     painter->setBrush(Qt::red);
@@ -23,8 +23,8 @@ void enemy::draw(QPainter*painter) const
 
 }
 void enemy::move(){
-    //if (!live)
-       //return;
+    if (!live)
+       return;
     now.setX(now.x()+(end.x()-start.x())/300);
     now.setY(now.y()+(end.y()-start.y())/300);
 }
@@ -38,7 +38,9 @@ QPoint enemy::nowposition(){
 QPoint enemy::endposition(){
     return(end);
 }
-bool enemy::ifarrive(const QPoint p){
-   if(enetest.iftouch(p,now,0))
-       return true;
+void enemy::hitted(int damage){
+    nowHP-=damage;
+    if(nowHP<=0)
+    live=false;
 }
+bool enemy::ifalive(){return live;}

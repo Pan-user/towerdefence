@@ -2,13 +2,14 @@
 #define CHAPTER1_H
 
 #include <QWidget>
-#include"basetower.h"
 #include <QPaintEvent>
 #include "Pos.h"
 #include<QList>
 #include <Qtimer>
 #include"basetower.h"
 #include"enemy.h"
+#include"bullet.h"
+#include"tower1.h"
 class chapter : public QWidget
 {
     Q_OBJECT
@@ -20,9 +21,9 @@ public:
 
 private:
     QList<Pos*> poslist;
-    QList<basetower*> towerlist;
+    QList<tower1*> towerlist;
     QList<enemy*> enemylist;
-    /*QList <QPoint*> waypoint;*/
+    QList<Bullet*> bulltelist;
     QPoint p1,p2,p3;
     QPoint* mark;
 

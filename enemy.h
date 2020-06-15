@@ -6,18 +6,19 @@
 #include<Qpixmap>
 #include <QPainter>
 #include"test.h"
-#include"chapter.h"
 class enemy : public QObject
 {
     Q_OBJECT
 public:
-    enemy(QPoint st,QPoint en,QString path,chapter* game);
+    enemy(QPoint st,QPoint en,QString path);
     void draw(QPainter*painter) const;
     void move();
     void trans(QPoint target);
     QPoint nowposition();
     QPoint endposition();
     bool ifarrive(const QPoint p);
+    void hitted(int);
+    bool ifalive();
 private:
     QPoint start;
     QPoint end;
@@ -25,9 +26,7 @@ private:
     const QPixmap appa;
     int maxHP;
     int nowHP;
-    //bool live;//是否活着
-    test enetest;//用于检测路标，攻击范围和是否进入基地
-    chapter* thispage;
+    bool live;
 signals:
 
 };

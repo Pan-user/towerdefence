@@ -12,7 +12,7 @@ class basetower : public QObject
     Q_OBJECT
 public:
     basetower(QPoint p1,QString p2);
-    //用点、界面和路径初始化塔的位置和外貌
+    //用点和路径初始化塔的位置和外貌
     void draw(QPainter*painter) const;
     QPoint getp();
     QPoint getcenter();
@@ -25,7 +25,7 @@ protected:
     QPixmap apparence;
     int attackrange;
     int damage;
-    //int speed;
+    int speed;
 
 
 signals:

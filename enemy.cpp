@@ -4,7 +4,7 @@ enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),
     this->now=st;
     this->start=st;
     this->end=en;
-
+    center=QPoint(now.x()+appa.size().width()/2,now.y()+appa.size().height()/2);
 }
 void enemy::draw(QPainter*painter) const
 {
@@ -27,6 +27,7 @@ void enemy::move(){
        return;
     now.setX(now.x()+(end.x()-start.x())/300);
     now.setY(now.y()+(end.y()-start.y())/300);
+    center=QPoint(now.x()+appa.size().width()/2,now.y()+appa.size().height()/2);
 }
 void enemy::trans(QPoint target){
     start=end;
@@ -37,6 +38,9 @@ QPoint enemy::nowposition(){
 }
 QPoint enemy::endposition(){
     return(end);
+}
+QPoint enemy::centerposition(){
+    return(center);
 }
 void enemy::hitted(int damage){
     nowHP-=damage;

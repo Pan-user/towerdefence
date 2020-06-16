@@ -1,28 +1,61 @@
 #include "tower1.h"
 
- tower1::tower1(QPoint p1,QString p2):basetower(p1,p2){
+tower1::tower1(QPoint p1,QString p2):basetower(p1,p2){
      damage=5;
+     fire=false;
+     movespeed = this->startTimer(20);
+     firespeed = this->startTimer(1000);
  }
- void tower1::get_target(QList<enemy*> target){
+void tower1::draw(QPainter*painter) const
+{
+    painter->drawPixmap(position,apparence);
+    foreach (Bullet* one,mybullet) {
+       one->draw(painter);
+    }
+    painter->save();
+    painter->setPen(Qt::white);
+    painter->drawEllipse(center, attackrange, attackrange);
+     painter->restore();
+}
+ void tower1::get_target(QList<enemy *> target){
         //遍历敌人,判断是否有敌人在攻击范围内
-        foreach (enemy *ene, target)
+     foreach (enemy *ene, target)
         {
-            if (iftouch(position,ene->nowposition(),attackrange))
+            if (iftouch(center,ene->centerposition(),attackrange))
             {
-                bullet1= new Bullet(position,ene->nowposition(),damage,":/picture/bullet.png",ene);
+                mytarget=ene;
+                fire=true;
                 break;
             }
-            bullet1=NULL;
+            fire=false;
         }
 
-
 }
- void tower1::attack(QList<Bullet*> bullet){
-    bullet.push_back(bullet1);
+ void tower1::attack(){
+     if(fire)
+     {
+        Bullet* onebullet= new Bullet(center,mytarget->centerposition(),damage,":/picture/bullet.png",mytarget);
+        mybullet.push_back(onebullet);
+     }
  }
-bool tower1::fire(){
-     if(bullet1==NULL)
-         return false;
-     else
-         return true;
+bool tower1::iffire(){
+
+         return fire;
  }
+
+void tower1::timerEvent(QTimerEvent *event){
+    if (event->timerId() == movespeed)
+    {
+        foreach(Bullet* one,mybullet)
+        {
+           if (one->ifhit())
+               mybullet.removeOne(one);
+           else
+            one->move();
+        }
+    }
+    else if (event->timerId() == firespeed)
+    {
+       this->attack();
+    }
+}

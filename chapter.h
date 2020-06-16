@@ -18,7 +18,7 @@ public:
     void paintEvent(QPaintEvent *);
     void load();
     QList<enemy*> getenemy() const{return enemylist;};
-
+    friend class tower1;
 private:
     QList<Pos*> poslist;
     QList<tower1*> towerlist;

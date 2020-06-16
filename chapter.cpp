@@ -24,10 +24,10 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(970,600),p3(9
     }//左键放塔或拆塔
     QTimer *timer1 = new QTimer(this);
     QTimer *timer2 = new QTimer(this);
+    QTimer *timer3 = new QTimer(this);
     connect(timer1, SIGNAL(timeout()), this, SLOT(updatewhole()));
     connect(timer2, SIGNAL(timeout()), this, SLOT(loadwave()));
         timer2->start(2000);
-
         timer1->start(10);
 }
 
@@ -96,9 +96,9 @@ void chapter::paintEvent(QPaintEvent *)
     QPainter painter(this);
     QPixmap preview(":/picture/map.png");
     painter.drawPixmap(0,0,this->width(),this->height(),preview);
-    foreach(basetower* tow,towerlist)
+    foreach(tower1* tow,towerlist)
     {
-        tow->setParent(this);
+
         tow->draw(&painter);
 
     }
@@ -119,13 +119,9 @@ void chapter::updatewhole(){
     foreach(tower1* tow,towerlist)
     {
         tow->get_target(enemylist);
-        if(tow->fire())
-        tow->attack(bulltelist);
+        tow->attack();
     }
-    foreach(Bullet* mybullet,bulltelist)
-    {
-       mybullet->move();
-    }
+
     foreach(enemy* ene,enemylist)
     {
         if(iftouch(ene->nowposition(),p3,0)||(!ene->ifalive()))

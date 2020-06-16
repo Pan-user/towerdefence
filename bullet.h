@@ -16,6 +16,7 @@ public:
     void move();
     void setCurrentPos(QPoint pos);
     QPoint currentPos() const;
+    bool ifhit();
 private slots:
 
 private:
@@ -25,6 +26,7 @@ private:
     QPoint			now;
     int				_damage;
     enemy* _target;
+    bool hit;
 
 
 signals:

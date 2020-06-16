@@ -9,13 +9,20 @@ class tower1 : public basetower
     Q_OBJECT
 public:
     tower1(QPoint p1,QString p2);
-    void attack(QList<Bullet*> bullet);
     void get_target(QList<enemy*> target);
-    bool fire();
+    void attack();
+    bool iffire();
+    void opentower();
+     void draw(QPainter*painter) const;
 private:
-    Bullet* bullet1;
+    QList<Bullet*> mybullet;
+    enemy* mytarget;
+    int movespeed;
+    int firespeed;
+    bool fire;
+    void towerupdate();
 signals:
-
+    void timerEvent(QTimerEvent *event);
 };
 
 #endif // TOWER1_H

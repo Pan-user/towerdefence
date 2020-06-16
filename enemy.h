@@ -16,6 +16,7 @@ public:
     void trans(QPoint target);
     QPoint nowposition();
     QPoint endposition();
+    QPoint centerposition();
     bool ifarrive(const QPoint p);
     void hitted(int);
     bool ifalive();
@@ -23,6 +24,7 @@ private:
     QPoint start;
     QPoint end;
     QPoint now;
+    QPoint center;
     const QPixmap appa;
     int maxHP;
     int nowHP;

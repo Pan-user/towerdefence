@@ -17,9 +17,9 @@ public:
     QPoint nowposition();
     QPoint endposition();
     QPoint centerposition();
-    bool ifarrive(const QPoint p);
     void hitted(int);
     bool ifalive();
+    int arrive();
 private:
     QPoint start;
     QPoint end;
@@ -29,6 +29,7 @@ private:
     int maxHP;
     int nowHP;
     bool live;
+    int damage;
 signals:
 
 };

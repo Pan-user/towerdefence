@@ -1,9 +1,8 @@
 #ifndef TOWER1_H
 #define TOWER1_H
-
-#include <QObject>
 #include"basetower.h"
 #include"bullet.h"
+#include"QTimer"
 class tower1 : public basetower
 {
     Q_OBJECT
@@ -20,9 +19,8 @@ private:
     int movespeed;
     int firespeed;
     bool fire;
-    void towerupdate();
-signals:
     void timerEvent(QTimerEvent *event);
+signals:
 };
 
 #endif // TOWER1_H

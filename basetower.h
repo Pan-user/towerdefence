@@ -16,18 +16,12 @@ public:
     void draw(QPainter*painter) const;
     QPoint getp();
     QPoint getcenter();
-
-    //virtual void attack(QList<Bullet*> blist);
-    //virtual void get_target(QList<enemy*> target);
 protected:
     QPoint position;
     QPoint center;
     QPixmap apparence;
     int attackrange;
     int damage;
-    int speed;
-
-
 signals:
 
 

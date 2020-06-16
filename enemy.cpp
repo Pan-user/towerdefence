@@ -1,6 +1,6 @@
 #include "enemy.h"
 
-enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),nowHP(100),live(true){
+enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),nowHP(100),live(true),damage(50){
     this->now=st;
     this->start=st;
     this->end=en;
@@ -11,12 +11,12 @@ void enemy::draw(QPainter*painter) const
     if (!live)
        return;
     painter->save();
-    QPoint healthPoint = now + QPoint(13 , -5);	// 绘制血条
+    QPoint barPoint = now + QPoint(13 , -5);	// 绘制血条
     painter->setBrush(Qt::red);
-    QRect healthBar1(healthPoint, QSize(50, 2));
+    QRect healthBar1(barPoint, QSize(50, 2));
     painter->drawRect(healthBar1);
     painter->setBrush(Qt::green);
-    QRect healthBar2(healthPoint, QSize((double)nowHP / maxHP * 50, 2));
+    QRect healthBar2(barPoint, QSize((double)nowHP / maxHP * 50, 2));
     painter->drawRect(healthBar2);
     painter->drawPixmap(now,appa);
     painter->restore();
@@ -47,4 +47,5 @@ void enemy::hitted(int damage){
     if(nowHP<=0)
     live=false;
 }
+int enemy::arrive(){return damage;}//走入基地造成伤害
 bool enemy::ifalive(){return live;}

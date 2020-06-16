@@ -23,13 +23,14 @@ private:
     QList<Pos*> poslist;
     QList<tower1*> towerlist;
     QList<enemy*> enemylist;
-    QList<Bullet*> bulltelist;
     QPoint p1,p2,p3;
     QPoint* mark;
-
+    int maxhomeHP;
+    int nowhomeHP;
 private slots:
     void updatewhole();
-    void set(Pos* p);
+    void delet(Pos* p);
+    void set_tower1(Pos* p);
     void loadwave();
 signals:
 

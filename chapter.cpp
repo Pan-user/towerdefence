@@ -6,9 +6,8 @@
 #include"pos.h"
 #include<QTimer>
 #include "test.h"
-chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(970,600),p3(970,100)
+chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(970,600),p3(970,100),nowhomeHP(1000),maxhomeHP(1000)
 {
-
 
     this->setFixedSize(1200,800);
     setWindowTitle("第一关");
@@ -18,13 +17,15 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(970,600),p3(9
     {
         position->setParent(this);
         position->move(position->px(),position->py());
-        connect(position, &Pos::clicked, this, [ = ] {
-            set(position);
+        connect(position, &Pos::choos_tower1, this, [ = ] {
+            set_tower1(position);
                 });
-    }//左键放塔或拆塔
+        connect(position, &Pos::choose_delet, this, [ = ] {
+            delet(position);
+                });
+    }//右键放塔或拆塔
     QTimer *timer1 = new QTimer(this);
     QTimer *timer2 = new QTimer(this);
-    QTimer *timer3 = new QTimer(this);
     connect(timer1, SIGNAL(timeout()), this, SLOT(updatewhole()));
     connect(timer2, SIGNAL(timeout()), this, SLOT(loadwave()));
         timer2->start(2000);
@@ -69,14 +70,8 @@ void chapter::loadwave(){
     update();
     repaint();
 }
-void chapter::set(Pos* p){
-    if(p->getif())
-     {
-        foreach(tower1* tow,towerlist)
-         if(tow->getp()==QPoint(p->px(),p->py()-10))
-             towerlist.removeOne(tow);
-    }
-   else
+void chapter::set_tower1(Pos* p){
+    if(!p->getif())
     {
      tower1* tower=new tower1(QPoint(p->px(),p->py()-10),":/picture/tower1.png");
      towerlist.push_back(tower);
@@ -86,8 +81,19 @@ void chapter::set(Pos* p){
     repaint();
 
 
-}//放塔或拆塔
+}//放塔1
+void chapter::delet(Pos* p){
+    if(p->getif())
+     {
+        foreach(tower1* tow,towerlist)
+         if(tow->getp()==QPoint(p->px(),p->py()-10))
+             towerlist.removeOne(tow);
+    }
+    p->change();
+    update();
+    repaint();
 
+}
 void chapter::paintEvent(QPaintEvent *)
 
 {
@@ -108,10 +114,15 @@ void chapter::paintEvent(QPaintEvent *)
         ene->draw(&painter);
 
     }
-    foreach (Bullet* mybullet,bulltelist) {
-       mybullet->setParent(this);
-       mybullet->draw(&painter);
-    }
+    painter.save();
+    QPoint barPoint = p3;	// 绘制基地血条,同enemy
+    painter.setBrush(Qt::red);
+    QRect healthBar1(barPoint, QSize(100, 10));
+    painter.drawRect(healthBar1);
+    painter.setBrush(Qt::green);
+    QRect healthBar2(barPoint, QSize((double)nowhomeHP / maxhomeHP * 100, 10));
+    painter.drawRect(healthBar2);
+    painter.restore();
 
 
 }
@@ -119,13 +130,18 @@ void chapter::updatewhole(){
     foreach(tower1* tow,towerlist)
     {
         tow->get_target(enemylist);
-        tow->attack();
+        //tow->attack();
     }
 
     foreach(enemy* ene,enemylist)
     {
-        if(iftouch(ene->nowposition(),p3,0)||(!ene->ifalive()))
+        if(!ene->ifalive())
             enemylist.removeOne(ene);
+        else if(iftouch(ene->nowposition(),p3,0))
+        {
+            nowhomeHP-=ene->arrive();
+            enemylist.removeOne(ene);
+        }
         else {
             if(iftouch(ene->nowposition(),ene->endposition(),0))
             ene->trans(p3);

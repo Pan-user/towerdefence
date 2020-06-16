@@ -6,6 +6,7 @@
 #include <QList>
 #include <button.h>
 #include <QMouseEvent>
+#include<QAction>
 class Pos:public Button{
 
 public:
@@ -20,5 +21,8 @@ private:
     QPoint	P;	//坐标
     bool  ifhas;//是否有塔
     QPixmap appa;
+signals:
+    void choos_tower1();
+    void choose_delet();
 };
 #endif // POS_H

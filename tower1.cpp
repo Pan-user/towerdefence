@@ -1,10 +1,11 @@
 #include "tower1.h"
 
 tower1::tower1(QPoint p1,QString p2):basetower(p1,p2){
-     damage=5;
+     damage=10;
      fire=false;
-     movespeed = this->startTimer(20);
-     firespeed = this->startTimer(1000);
+     movespeed = this->startTimer(10);
+     firespeed = this->startTimer(500);
+
  }
 void tower1::draw(QPainter*painter) const
 {

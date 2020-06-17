@@ -1,7 +1,7 @@
 #include "tower1.h"
 
 tower1::tower1(QPoint p1,QString p2):basetower(p1,p2){
-     damage=10;
+     damage=20;
      fire=false;
      movespeed = this->startTimer(10);
      firespeed = this->startTimer(500);
@@ -27,8 +27,8 @@ void tower1::draw(QPainter*painter) const
                 mytarget=ene;
                 fire=true;
                 break;
-            }
-            fire=false;
+            }//只锁定最先进入视野的目标
+            fire=false;//若没有敌人则关闭开火
         }
 
 }
@@ -39,10 +39,7 @@ void tower1::draw(QPainter*painter) const
         mybullet.push_back(onebullet);
      }
  }
-bool tower1::iffire(){
 
-         return fire;
- }
 
 void tower1::timerEvent(QTimerEvent *event){
     if (event->timerId() == movespeed)

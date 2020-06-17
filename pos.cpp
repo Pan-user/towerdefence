@@ -4,30 +4,24 @@
 #include <QMouseEvent>
 Pos::Pos(QPoint p1):Button(":/picture/BASE.png"),P(p1),appa(":/picture/BASE.png"){
     appa = appa.scaled(appa.width()/1.5,appa.height()/1.5,Qt::KeepAspectRatio);
-    ifhas=false;
     setContextMenuPolicy(Qt::ActionsContextMenu);
     QAction* set_tower1=new QAction(this);
     QAction* delet=new QAction(this);
-    set_tower1->setText("放置一号塔");
-    delet->setText("拆除塔");
+    set_tower1->setText("放置杰尼龟(-100 c)");
+    delet->setText("拆除塔(+50 c)");
+    delet->setEnabled(false);
     connect(set_tower1, &QAction::triggered, this, [ = ] {
-        emit choos_tower1();
+        delet->setEnabled(true);
+        set_tower1->setEnabled(false);
+        emit choos_tower1();//放塔并激活删除选项
             });
     connect(delet, &QAction::triggered, this, [ = ] {
-        emit choose_delet();
+        set_tower1->setEnabled(true);
+        emit choose_delet();//删除塔并激活放塔选项
             });
     addAction(set_tower1);
     addAction(delet);
     }
- bool Pos:: getif() const{
-    return ifhas;
-}
-void Pos::change() {
-    if(ifhas)
-    ifhas=false;
-    else
-    ifhas=true;
-}
 
 void Pos::draw(QPainter *painter) const
 {

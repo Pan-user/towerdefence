@@ -9,6 +9,7 @@ void Bullet::move(){
 
     int deltay =5*(_target->centerposition().y()-now.y())/sqrt(pow(_target->centerposition().x()-now.x(),2)+pow(_target->centerposition().y()-now.y(),2));
     int deltax =5*(_target->centerposition().x()-now.x())/sqrt(pow(_target->centerposition().x()-now.x(),2)+pow(_target->centerposition().y()-now.y(),2));
+    //用三角函数值移动
     if(iftouch(_target->centerposition(),now,5))
     {
         _target->hitted(_damage);

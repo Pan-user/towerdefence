@@ -10,24 +10,4 @@ Button::Button(QString m):QPushButton(0){
     this->setIconSize(QSize(pic.width()/1.5,pic.height()/1.5));
 
 }
-/*void Button::mouseReleaseEvent(QMouseEvent *e)
 
-{
-
-    if (Qt::LeftButton == e->button())
-
-    {
-
-        emit leftClicked();
-
-    }
-
-    else if (Qt::RightButton == e->button())
-
-    {
-
-        emit rightClicked();
-
-    }
-
-}*/

@@ -10,15 +10,10 @@ public:
     tower1(QPoint p1,QString p2);
     void get_target(QList<enemy*> target);
     void attack();
-    bool iffire();
-    void opentower();
-     void draw(QPainter*painter) const;
+    void draw(QPainter*painter) const;
 private:
     QList<Bullet*> mybullet;
-    enemy* mytarget;
-    int movespeed;
-    int firespeed;
-    bool fire;
+    enemy* mytarget;//只有一个目标
     void timerEvent(QTimerEvent *event);
 signals:
 };

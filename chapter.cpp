@@ -19,10 +19,10 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(970,600),p3(9
         position->move(position->px(),position->py());
         connect(position, &Pos::choos_tower1, this, [ = ] {
             set_tower1(position);
-                });
+                });//放置塔1
         connect(position, &Pos::choose_delet, this, [ = ] {
             delet(position);
-                });
+                });//删除塔
     }//右键放塔或拆塔
     QTimer *timer1 = new QTimer(this);
     QTimer *timer2 = new QTimer(this);
@@ -71,25 +71,17 @@ void chapter::loadwave(){
     repaint();
 }
 void chapter::set_tower1(Pos* p){
-    if(!p->getif())
-    {
      tower1* tower=new tower1(QPoint(p->px(),p->py()-10),":/picture/tower1.png");
      towerlist.push_back(tower);
-    }
-    p->change();
     update();
     repaint();
 
 
 }//放塔1
 void chapter::delet(Pos* p){
-    if(p->getif())
-     {
-        foreach(tower1* tow,towerlist)
+        foreach(basetower* tow,towerlist)
          if(tow->getp()==QPoint(p->px(),p->py()-10))
              towerlist.removeOne(tow);
-    }
-    p->change();
     update();
     repaint();
 
@@ -102,7 +94,7 @@ void chapter::paintEvent(QPaintEvent *)
     QPainter painter(this);
     QPixmap preview(":/picture/map.png");
     painter.drawPixmap(0,0,this->width(),this->height(),preview);
-    foreach(tower1* tow,towerlist)
+    foreach(basetower* tow,towerlist)
     {
 
         tow->draw(&painter);
@@ -127,10 +119,9 @@ void chapter::paintEvent(QPaintEvent *)
 
 }
 void chapter::updatewhole(){
-    foreach(tower1* tow,towerlist)
+    foreach(basetower* tow,towerlist)
     {
         tow->get_target(enemylist);
-        //tow->attack();
     }
 
     foreach(enemy* ene,enemylist)

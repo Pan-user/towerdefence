@@ -14,8 +14,7 @@ private:
 
 
 signals:
-    /*void leftClicked();
-    void rightClicked();*/
+
 };
 
 #endif // BUTTON_H

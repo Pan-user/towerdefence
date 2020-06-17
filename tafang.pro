@@ -25,7 +25,8 @@ SOURCES += \
     list.cpp \
     main.cpp \
     mainwindow.cpp \
-    tower1.cpp
+    tower1.cpp \
+    tower2.cpp
 
 HEADERS += \
     Pos.h \
@@ -37,7 +38,8 @@ HEADERS += \
     list.h \
     mainwindow.h \
     test.h \
-    tower1.h
+    tower1.h \
+    tower2.h
 
 FORMS += \
     mainwindow.ui

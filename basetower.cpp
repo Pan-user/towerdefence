@@ -15,4 +15,10 @@ void basetower::draw(QPainter*painter) const
 }
 QPoint basetower::getp(){return position;}
 QPoint basetower::getcenter(){return center;}
+bool basetower::iffire(){
+
+         return fire;
+ }
+void basetower::get_target(QList<enemy*> target){}
+void basetower::attack(){}
 

@@ -16,13 +16,13 @@ class chapter : public QWidget
 public:
     explicit chapter(QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *);
-    void load();
+    void load();//加载位置
     QList<enemy*> getenemy() const{return enemylist;};
-    friend class tower1;
+
 private:
     QList<Pos*> poslist;
-    QList<tower1*> towerlist;
-    QList<enemy*> enemylist;
+    QList<basetower*> towerlist;//用基类容器存储不同的塔
+    QList<enemy*> enemylist;//存储敌人
     QPoint p1,p2,p3;
     QPoint* mark;
     int maxhomeHP;

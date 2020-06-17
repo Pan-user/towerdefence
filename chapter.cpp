@@ -32,8 +32,8 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
     QTimer *timer2 = new QTimer(this);
     connect(timer1, SIGNAL(timeout()), this, SLOT(updatewhole()));
     connect(timer2, SIGNAL(timeout()), this, SLOT(loadwave()));
-        timer2->start(5000);
-        timer1->start(10);
+    timer2->start(10000);
+    timer1->start(10);
 }
 
 
@@ -71,17 +71,15 @@ void chapter::load(){
 void chapter::loadenemy(){
     enemy* enemy1=new enemy(p1,p2,":/picture/monster1.png");
     enemylist.push_back(enemy1);
-    enemy1->alive();
     update();
     repaint();
 }
 void chapter::loadwave(){
-    int i=0;
-    for(i=0;i<waves;i++)
+    int i=1;
+    for(i=1;i<=waves;i++)
     {
-        enemy* enemy1=new enemy(p1,p2,":/picture/monster1.png");
-        enemylist.push_back(enemy1);
-        QTimer::singleShot(waves*1000,this,SLOT(loadenemy()));
+
+        QTimer::singleShot(i*1000,this,SLOT(loadenemy()));
         update();
         repaint();
     }

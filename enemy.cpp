@@ -1,6 +1,6 @@
 #include "enemy.h"
 
-enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),nowHP(100),live(false),damage(50){
+enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),nowHP(100),live(true),damage(50){
     this->now=st;
     this->start=st;
     this->end=en;
@@ -26,8 +26,8 @@ void enemy::draw(QPainter*painter) const
 void enemy::move(){
     if (!live)
        return;
-    now.setX(now.x()+(end.x()-start.x())/300);
-    now.setY(now.y()+(end.y()-start.y())/300);
+    now.setX(now.x()+(end.x()-start.x())/350);
+    now.setY(now.y()+(end.y()-start.y())/350);
     center=QPoint(now.x()+appa.size().width()/2,now.y()+appa.size().height()/2);
 }
 void enemy::trans(QPoint target){

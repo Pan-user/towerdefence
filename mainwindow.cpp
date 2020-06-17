@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     Start->setParent(this);
     Start->move(500,400);
     list* main=new list;
-    chapter* chapter1=new chapter;
     connect(Start,&QPushButton::clicked,this,[=](){
+        chapter* chapter1=new chapter;
         this->close();
         chapter1->show();
     });

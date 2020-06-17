@@ -36,6 +36,7 @@ private slots:
     void set_tower2(Pos* p);
     void loadwave();
     void loadenemy();
+
 signals:
 
 };

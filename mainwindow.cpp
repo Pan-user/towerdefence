@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
    this->setFixedSize(1200,800);
     ui->setupUi(this);
     setWindowTitle("塔防");
-    Button *Start=new Button(":/picture/Untitled.png");
+    Button *Start=new Button(":/picture/start.png");
     Start->setParent(this);
     Start->move(500,400);
     list* main=new list;

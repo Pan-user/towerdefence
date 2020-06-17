@@ -1,6 +1,6 @@
 #include "bullet.h"
 Bullet::Bullet(QPoint start, QPoint end, int damage,QString path,enemy* target):_start(start),_end(end),_damage(damage),appa(path),_target(target),now(start),hit(false){
-
+    appa=appa.scaled(appa.width()/5,appa.height()/5,Qt::KeepAspectRatio);
 }
 void Bullet::draw(QPainter *painter) const{
     painter->drawPixmap(now,appa);

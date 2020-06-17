@@ -22,6 +22,7 @@ public:
     int arrive();
     bool ifhurted();
     void resethurt();
+    void alive();
 private:
     QPoint start;
     QPoint end;

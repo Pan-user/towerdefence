@@ -17,5 +17,6 @@
         <file>picture/bullet.png</file>
         <file>picture/monster1.png</file>
         <file>picture/monster2.png</file>
+        <file>picture/start.png</file>
     </qresource>
 </RCC>

@@ -6,6 +6,7 @@
 #include"pos.h"
 #include<QTimer>
 #include "test.h"
+int chapter:: waves=1;
 chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(980,100),nowhomeHP(1000),maxhomeHP(1000)
 {
 
@@ -70,16 +71,22 @@ void chapter::load(){
 void chapter::loadenemy(){
     enemy* enemy1=new enemy(p1,p2,":/picture/monster1.png");
     enemylist.push_back(enemy1);
-}
-void chapter::loadwave(){
-    static int waves=1;
-    QTimer *interval = new QTimer(this);
-    connect(interval, SIGNAL(timeout()), this, SLOT(loadenemy()));
-    interval->start(10);
-
-    waves+=1;
+    enemy1->alive();
     update();
     repaint();
+}
+void chapter::loadwave(){
+    int i=0;
+    for(i=0;i<waves;i++)
+    {
+        enemy* enemy1=new enemy(p1,p2,":/picture/monster1.png");
+        enemylist.push_back(enemy1);
+        QTimer::singleShot(waves*1000,this,SLOT(loadenemy()));
+        update();
+        repaint();
+    }
+    waves+=1;
+
 }
 
 void chapter::set_tower1(Pos* p){

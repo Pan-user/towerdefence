@@ -28,6 +28,7 @@ private:
     QPoint* mark;
     int maxhomeHP;
     int nowhomeHP;
+    static int waves;//静态成员变量，波数
 private slots:
     void updatewhole();
     void delet(Pos* p);

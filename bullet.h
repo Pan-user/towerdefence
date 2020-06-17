@@ -5,6 +5,7 @@
 #include "enemy.h"
 #include<cmath>
 #include"test.h"
+#include<QPixmap>
 class Bullet : public QObject
 {
     Q_OBJECT
@@ -22,7 +23,7 @@ private slots:
 private:
     const QPoint	_start;
     QPoint	_end;
-    const QPixmap   appa;
+     QPixmap   appa;
     QPoint			now;
     int				_damage;
     enemy* _target;

@@ -1,6 +1,6 @@
 #include "enemy.h"
 
-enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),nowHP(100),live(true),damage(50){
+enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),nowHP(100),live(false),damage(50){
     this->now=st;
     this->start=st;
     this->end=en;
@@ -50,9 +50,11 @@ void enemy::hitted(int damage){
 }
 int enemy::arrive(){return damage;}//走入基地造成伤害
 bool enemy::ifalive(){return live;}
+
 bool enemy::ifhurted(){
     return hurted;
 }
+void enemy::alive(){live=true;}
 void enemy::resethurt(){
     if(hurted)
     hurted=false;

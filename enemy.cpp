@@ -4,6 +4,7 @@ enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),
     this->now=st;
     this->start=st;
     this->end=en;
+    hurted=false;
     center=QPoint(now.x()+appa.size().width()/2,now.y()+appa.size().height()/2);
 }
 void enemy::draw(QPainter*painter) const
@@ -49,3 +50,12 @@ void enemy::hitted(int damage){
 }
 int enemy::arrive(){return damage;}//走入基地造成伤害
 bool enemy::ifalive(){return live;}
+bool enemy::ifhurted(){
+    return hurted;
+}
+void enemy::resethurt(){
+    if(hurted)
+    hurted=false;
+    else
+    hurted=true;
+}//为塔2设计，判断是否被攻击过和重置攻击

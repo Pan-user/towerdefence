@@ -1,7 +1,5 @@
 #include "basetower.h"
 basetower::basetower(QPoint p1,QString p2):QObject(0),position(p1),apparence(p2),center(p1.x()+apparence.size().width()*1.2/2,p1.y()+apparence.size().height()*1.2/2),attackrange(150){
-    apparence = apparence.scaled(apparence.width()*1.2,apparence.height()*1.2,Qt::KeepAspectRatio);
-    center=QPoint(p1.x()+apparence.size().width()/2,p1.y()+apparence.size().height()/2+10);
 
 }
 

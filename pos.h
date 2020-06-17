@@ -20,6 +20,7 @@ private:
     QPixmap appa;
 signals:
     void choos_tower1();
+    void choos_tower2();
     void choose_delet();
 };
 #endif // POS_H

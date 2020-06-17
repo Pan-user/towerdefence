@@ -10,6 +10,7 @@
 #include"enemy.h"
 #include"bullet.h"
 #include"tower1.h"
+#include"tower2.h"
 class chapter : public QWidget
 {
     Q_OBJECT
@@ -31,7 +32,9 @@ private slots:
     void updatewhole();
     void delet(Pos* p);
     void set_tower1(Pos* p);
+    void set_tower2(Pos* p);
     void loadwave();
+    void loadenemy();
 signals:
 
 };

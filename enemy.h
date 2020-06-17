@@ -20,6 +20,8 @@ public:
     void hitted(int);
     bool ifalive();
     int arrive();
+    bool ifhurted();
+    void resethurt();
 private:
     QPoint start;
     QPoint end;
@@ -30,6 +32,7 @@ private:
     int nowHP;
     bool live;
     int damage;
+    bool hurted;//为塔2设计，判断是否被攻击过
 signals:
 
 };

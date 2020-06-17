@@ -6,7 +6,7 @@
 #include"pos.h"
 #include<QTimer>
 #include "test.h"
-chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(970,600),p3(970,100),nowhomeHP(1000),maxhomeHP(1000)
+chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(980,100),nowhomeHP(1000),maxhomeHP(1000)
 {
 
     this->setFixedSize(1200,800);
@@ -20,6 +20,9 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(970,600),p3(9
         connect(position, &Pos::choos_tower1, this, [ = ] {
             set_tower1(position);
                 });//放置塔1
+        connect(position, &Pos::choos_tower2, this, [ = ] {
+            set_tower2(position);
+                });//放置塔2
         connect(position, &Pos::choose_delet, this, [ = ] {
             delet(position);
                 });//删除塔
@@ -28,7 +31,7 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(970,600),p3(9
     QTimer *timer2 = new QTimer(this);
     connect(timer1, SIGNAL(timeout()), this, SLOT(updatewhole()));
     connect(timer2, SIGNAL(timeout()), this, SLOT(loadwave()));
-        timer2->start(2000);
+        timer2->start(5000);
         timer1->start(10);
 }
 
@@ -64,14 +67,31 @@ void chapter::load(){
             update();}
 
     }
-void chapter::loadwave(){
-    enemy* enemy1=new enemy(p1,p2,":/picture/tower2.png");
+void chapter::loadenemy(){
+    enemy* enemy1=new enemy(p1,p2,":/picture/monster1.png");
     enemylist.push_back(enemy1);
+}
+void chapter::loadwave(){
+    static int waves=1;
+    QTimer *interval = new QTimer(this);
+    connect(interval, SIGNAL(timeout()), this, SLOT(loadenemy()));
+    interval->start(10);
+
+    waves+=1;
     update();
     repaint();
 }
+
 void chapter::set_tower1(Pos* p){
-     tower1* tower=new tower1(QPoint(p->px(),p->py()-10),":/picture/tower1.png");
+     tower1* tower=new tower1(QPoint(p->px()+20,p->py()+20),":/picture/tower1.png");
+     towerlist.push_back(tower);
+    update();
+    repaint();
+
+
+}//放塔1
+void chapter::set_tower2(Pos* p){
+     tower2* tower=new tower2(QPoint(p->px()+20,p->py()+20),":/picture/tower2.png");
      towerlist.push_back(tower);
     update();
     repaint();
@@ -80,7 +100,7 @@ void chapter::set_tower1(Pos* p){
 }//放塔1
 void chapter::delet(Pos* p){
         foreach(basetower* tow,towerlist)
-         if(tow->getp()==QPoint(p->px(),p->py()-10))
+         if(tow->getp()==QPoint(p->px(),p->py()))
              towerlist.removeOne(tow);
     update();
     repaint();

@@ -14,10 +14,12 @@ public:
     void draw(QPainter *painter) const;
     int px();
     int py();
-
+    void goldtest(int gold);//判断是否能放塔并改变放塔状态
 private:
     QPoint	P;	//坐标
     QPixmap appa;
+    QList<QAction*> myOption;//操作菜单的选项
+    QList<int> optionCost;//选项对应的费用
 signals:
     void choos_tower1();
     void choos_tower2();

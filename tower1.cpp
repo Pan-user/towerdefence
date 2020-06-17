@@ -4,9 +4,10 @@ tower1::tower1(QPoint p1,QString p2):basetower(p1,p2){
     apparence = apparence.scaled(apparence.width()*1.5,apparence.height()*1.5,Qt::KeepAspectRatio);
     center=QPoint(p1.x()+apparence.size().width()*1.5/2-13,p1.y()+apparence.size().height()*1.5/2-13);
     damage=20;
-     fire=false;
-     movespeed = this->startTimer(10);
-     firespeed = this->startTimer(500);
+    cost=100;
+    fire=false;
+    movespeed = this->startTimer(10);
+    firespeed = this->startTimer(500);
 
  }
 void tower1::draw(QPainter*painter) const

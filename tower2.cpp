@@ -5,6 +5,7 @@ tower2::tower2(QPoint p1,QString p2):basetower(p1,p2){
     center=QPoint(p1.x()+apparence.size().width()*1.2/2,p1.y()+apparence.size().height()*1.2/2);
      damage=10;
      waverange=0;
+     cost=150;
      fire=false;
      movespeed = this->startTimer(5);
      firespeed = this->startTimer(500);

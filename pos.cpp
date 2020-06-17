@@ -32,8 +32,21 @@ Pos::Pos(QPoint p1):Button(":/picture/BASE.png"),P(p1),appa(":/picture/BASE.png"
     addAction(set_tower1);
     addAction(set_tower2);
     addAction(delet);
+    myOption.push_back(set_tower1);
+    optionCost.push_back(100);
+    myOption.push_back(set_tower2);
+    optionCost.push_back(150);
+    myOption.push_back(delet);
     }
 
+void Pos::goldtest(int gold){
+    for(int i=0;i<3;i++)
+    if(gold<optionCost[i])
+    myOption[i]->setEnabled(false);
+    else if(myOption.last()->isEnabled())
+    myOption[i]->setEnabled(true);
+
+}//依次检测当前金额是否可以点击这个选项
 void Pos::draw(QPainter *painter) const
 {
 

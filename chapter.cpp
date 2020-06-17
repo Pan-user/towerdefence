@@ -6,7 +6,7 @@
 #include"pos.h"
 #include<QTimer>
 #include "test.h"
-int chapter:: waves=1;
+int chapter:: waves=1;int chapter::gold=300;
 chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(980,100),nowhomeHP(1000),maxhomeHP(1000)
 {
 
@@ -19,10 +19,10 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
         position->setParent(this);
         position->move(position->px(),position->py());
         connect(position, &Pos::choos_tower1, this, [ = ] {
-            set_tower1(position);
+            set_tower1(position);gold-=100;
                 });//放置塔1
         connect(position, &Pos::choos_tower2, this, [ = ] {
-            set_tower2(position);
+            set_tower2(position);gold-=150;
                 });//放置塔2
         connect(position, &Pos::choose_delet, this, [ = ] {
             delet(position);
@@ -144,6 +144,8 @@ void chapter::paintEvent(QPaintEvent *)
 
 }
 void chapter::updatewhole(){
+    foreach(Pos* base,poslist)
+        base->goldtest(gold);//检查金币是否足够
     foreach(basetower* tow,towerlist)
     {
         tow->get_target(enemylist);

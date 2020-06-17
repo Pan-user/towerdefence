@@ -29,6 +29,7 @@ private:
     int maxhomeHP;
     int nowhomeHP;
     static int waves;//静态成员变量，波数
+    static int gold;//静态成员变量，金币
 private slots:
     void updatewhole();
     void delet(Pos* p);

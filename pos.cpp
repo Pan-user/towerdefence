@@ -53,6 +53,7 @@ void Pos::delet(){
     myOption[1]->setEnabled(true);
     myOption[2]->setEnabled(false);
 
+
 }
 void Pos::draw(QPainter *painter) const
 {

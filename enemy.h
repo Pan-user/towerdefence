@@ -11,13 +11,13 @@ class enemy : public QObject//最基础的敌人
     Q_OBJECT
 public:
     enemy(QPoint st,QPoint en,QString path);
-    void draw(QPainter*painter) const;
-    void move();
+    virtual void draw(QPainter*painter) ;
+    virtual void move();
     void trans(QPoint target);
     QPoint nowposition();
     QPoint endposition();
     QPoint centerposition();
-    virtual void hitted(int);
+    virtual void hitted(int damage);
     bool ifalive();
     int arrive();
     bool ifhurted();
@@ -28,11 +28,11 @@ protected:
     QPoint end;
     QPoint now;
     QPoint center;
-    const QPixmap appa;
+    QPixmap appa;
     int maxHP;
     int nowHP;
     bool live;
-    int damage;
+    const int damage;
     bool hurted;//为塔2设计，判断是否被攻击过
 signals:
 

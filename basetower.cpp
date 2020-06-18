@@ -19,5 +19,5 @@ bool basetower::iffire(){
  }
 void basetower::get_target(QList<enemy*> target){}
 int basetower::get_cost(){return cost;}
-void basetower::attack(){}
+
 

@@ -11,7 +11,7 @@
 #include"bullet.h"
 #include"tower1.h"
 #include"tower2.h"
-//#include"enemy_plus.h"
+#include"enemy_plus.h"
 class chapter : public QWidget
 {
     Q_OBJECT

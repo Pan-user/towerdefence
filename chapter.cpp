@@ -34,7 +34,7 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
         connect(position, &Pos::choose_delet, this, [ = ] {
             delet(position);
                 });//删除塔
-    }//右键放塔或拆塔
+    }
     QTimer *timer1 = new QTimer(this);
     QTimer *timer2 = new QTimer(this);
     connect(timer1, SIGNAL(timeout()), this, SLOT(updatewhole()));
@@ -81,7 +81,7 @@ void chapter::loadGoldbar(){
     goldbar->show();
 }
 void chapter::loadenemy(){
-    enemy* enemy1=new enemy(p1,p2,":/picture/monster1.png");
+    enemy_plus* enemy1=new enemy_plus(p1,p2,":/picture/monster2.png");
     enemylist.push_back(enemy1);
 
 }
@@ -119,6 +119,7 @@ void chapter::delet(Pos* p){
         foreach(basetower* tow,towerlist)
          if(tow->getp()==QPoint(p->px(),p->py()))
              towerlist.removeOne(tow);
+        gold+=50;
         p->delet();
 
 }
@@ -168,14 +169,16 @@ void chapter::updatewhole(){
             enemylist.removeOne(ene);
             gold+=100;
             loadGoldbar();
+            update();
         }
         else if(iftouch(ene->nowposition(),p3,0))
         {
             nowhomeHP-=ene->arrive();
             enemylist.removeOne(ene);
+
         }
         else {
-            if(iftouch(ene->nowposition(),ene->endposition(),0))
+            if(iftouch(ene->nowposition(),ene->endposition(),2))
             ene->trans(p3);
             ene->move();
         }

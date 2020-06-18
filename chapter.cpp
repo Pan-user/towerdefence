@@ -6,12 +6,19 @@
 #include"pos.h"
 #include<QTimer>
 #include "test.h"
-int chapter:: waves=1;int chapter::gold=300;
+#include<QLabel>
+int chapter:: waves=1;int chapter::gold=300;static QLabel* goldbar;
 chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(980,100),nowhomeHP(1000),maxhomeHP(1000)
 {
 
     this->setFixedSize(1200,800);
     setWindowTitle("第一关");
+    goldbar=new QLabel(this);
+    goldbar->setText("当前金币数: "+QString::number(gold));
+    goldbar->setFont(QFont("Microsoft YaHei", 20, QFont::Bold));
+    goldbar->setStyleSheet("color:yellow;");
+    goldbar->move(450,150);
+    goldbar->show();
     load();
     loadwave();
     foreach(Pos* position,poslist)
@@ -19,10 +26,10 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
         position->setParent(this);
         position->move(position->px(),position->py());
         connect(position, &Pos::choos_tower1, this, [ = ] {
-            set_tower1(position);gold-=100;
+            set_tower(position,1);
                 });//放置塔1
         connect(position, &Pos::choos_tower2, this, [ = ] {
-            set_tower2(position);gold-=150;
+            set_tower(position,2);
                 });//放置塔2
         connect(position, &Pos::choose_delet, this, [ = ] {
             delet(position);
@@ -35,7 +42,6 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
     timer2->start(10000);
     timer1->start(10);
 }
-
 
 
 void chapter::load(){
@@ -65,14 +71,19 @@ void chapter::load(){
             {
             poslist.push_back(posi[i]);
 
-            update();}
+            }
 
     }
+void chapter::loadGoldbar(){
+    goldbar->clear();
+    goldbar->setText("当前金币数: "+QString::number(gold));
+    goldbar->move(450,150);
+    goldbar->show();
+}
 void chapter::loadenemy(){
     enemy* enemy1=new enemy(p1,p2,":/picture/monster1.png");
     enemylist.push_back(enemy1);
-    update();
-    repaint();
+
 }
 void chapter::loadwave(){
     int i=1;
@@ -80,26 +91,27 @@ void chapter::loadwave(){
     {
 
         QTimer::singleShot(i*1000,this,SLOT(loadenemy()));
-        update();
-        repaint();
+
     }
     waves+=1;
 
 }
 
-void chapter::set_tower1(Pos* p){
-     tower1* tower=new tower1(QPoint(p->px()+20,p->py()+20),":/picture/tower1.png");
-     towerlist.push_back(tower);
-    update();
-    repaint();
+void chapter::set_tower(Pos* p,int type){
+    basetower* tower;
+    if(type==1)
+        tower=new tower1(QPoint(p->px()+20,p->py()+20),":/picture/tower1.png");
+    else
+        tower=new tower2(QPoint(p->px()+20,p->py()+20),":/picture/tower2.png");
+//判断是什么类型的塔
+    if (gold>=tower->get_cost())
+    {
+        towerlist.push_back(tower);
+        gold-=tower->get_cost();//扣除金币
+        p->set();//改变塔基菜单选项的状态
+        loadGoldbar();//改变金币显示
 
-
-}//放塔1
-void chapter::set_tower2(Pos* p){
-     tower2* tower=new tower2(QPoint(p->px()+20,p->py()+20),":/picture/tower2.png");
-     towerlist.push_back(tower);
-    update();
-    repaint();
+    }
 
 
 }//放塔1
@@ -107,8 +119,7 @@ void chapter::delet(Pos* p){
         foreach(basetower* tow,towerlist)
          if(tow->getp()==QPoint(p->px(),p->py()))
              towerlist.removeOne(tow);
-    update();
-    repaint();
+        p->delet();
 
 }
 void chapter::paintEvent(QPaintEvent *)
@@ -144,17 +155,20 @@ void chapter::paintEvent(QPaintEvent *)
 
 }
 void chapter::updatewhole(){
-    foreach(Pos* base,poslist)
-        base->goldtest(gold);//检查金币是否足够
+
+
     foreach(basetower* tow,towerlist)
     {
         tow->get_target(enemylist);
     }
-
     foreach(enemy* ene,enemylist)
     {
         if(!ene->ifalive())
+        {
             enemylist.removeOne(ene);
+            gold+=100;
+            loadGoldbar();
+        }
         else if(iftouch(ene->nowposition(),p3,0))
         {
             nowhomeHP-=ene->arrive();
@@ -168,5 +182,6 @@ void chapter::updatewhole(){
 
 
     }
+
     repaint();
 }

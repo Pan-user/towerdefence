@@ -6,7 +6,7 @@
 #include<Qpixmap>
 #include <QPainter>
 #include"test.h"
-class enemy : public QObject
+class enemy : public QObject//最基础的敌人
 {
     Q_OBJECT
 public:
@@ -17,13 +17,13 @@ public:
     QPoint nowposition();
     QPoint endposition();
     QPoint centerposition();
-    void hitted(int);
+    virtual void hitted(int);
     bool ifalive();
     int arrive();
     bool ifhurted();
     void resethurt();
-    void alive();
-private:
+
+protected:
     QPoint start;
     QPoint end;
     QPoint now;

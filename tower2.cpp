@@ -8,8 +8,8 @@ tower2::tower2(QPoint p1,QString p2):basetower(p1,p2){
      cost=150;
      fire=false;
      movespeed = this->startTimer(5);
-     firespeed = this->startTimer(500);
-
+     firespeed = this->startTimer(800);
+     attackrange=200;
  }
 void tower2::draw(QPainter*painter) const
 {
@@ -35,7 +35,7 @@ void tower2::draw(QPainter*painter) const
              mytarget.removeOne(ene);
 
          }//删去所有离开视野的敌人
-      if(mytarget.empty())
+      if(mytarget.empty()||target.empty())
                 fire=false;
             //若没有敌人则关闭开火
         }
@@ -48,7 +48,7 @@ void tower2::draw(QPainter*painter) const
             if(target->ifhurted())
             target->resethurt();
          waverange=1;
-     }//释放攻击波
+     }//若有敌人释放攻击波
  }
 bool tower2::ifhit(QPoint p1,QPoint p2,float range){
      int ifx = p1.x() - p2.x();
@@ -66,7 +66,7 @@ void tower2::timerEvent(QTimerEvent *event){
         if(waverange<attackrange)
             waverange+=1;
         else
-            waverange=0;
+            waverange=0;//到达最大范围后攻击波消失等待下一次释放
         foreach(enemy* target,mytarget)
          if(iftouch(center,target->centerposition(),waverange))
          {
@@ -76,10 +76,9 @@ void tower2::timerEvent(QTimerEvent *event){
                    target->resethurt();
                }
 
-         }
+         }//敌人被攻击波扫过一次后结算伤害
     }
-    else if(event->timerId() == movespeed)
+    else if(event->timerId() == firespeed)
         this->attack();
-
 
 }

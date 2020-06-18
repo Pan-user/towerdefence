@@ -13,40 +13,47 @@ Pos::Pos(QPoint p1):Button(":/picture/BASE.png"),P(p1),appa(":/picture/BASE.png"
     delet->setText("拆除塔(+50 c)");
     delet->setEnabled(false);
     connect(set_tower1, &QAction::triggered, this, [ = ] {
-        delet->setEnabled(true);
-        set_tower1->setEnabled(false);
-        set_tower2->setEnabled(false);
+        //delet->setEnabled(true);
+        //set_tower1->setEnabled(false);
+        //set_tower2->setEnabled(false);
         emit choos_tower1();//放塔1并激活删除选项
             });
     connect(set_tower2, &QAction::triggered, this, [ = ] {
-        delet->setEnabled(true);
-        set_tower1->setEnabled(false);
-        set_tower2->setEnabled(false);
+        //delet->setEnabled(true);
+        //set_tower1->setEnabled(false);
+        //set_tower2->setEnabled(false);
         emit choos_tower2();//放塔2并激活删除选项
             });
     connect(delet, &QAction::triggered, this, [ = ] {
-        set_tower1->setEnabled(true);
-        set_tower2->setEnabled(true);
+        //set_tower1->setEnabled(true);
+        //set_tower2->setEnabled(true);
         emit choose_delet();//删除塔并激活放塔选项
             });
     addAction(set_tower1);
     addAction(set_tower2);
     addAction(delet);
     myOption.push_back(set_tower1);
-    optionCost.push_back(100);
     myOption.push_back(set_tower2);
-    optionCost.push_back(150);
     myOption.push_back(delet);
     }
+/*void Pos::change(int a){
+    if(myOption[a]->isEnabled())
+        myOption[a]->setEnabled(false);
+    else
+        myOption[a]->setEnabled(true);
+}//改变菜单栏的可用状态*/
+void Pos::set(){
+    myOption[0]->setEnabled(false);
+    myOption[1]->setEnabled(false);
+    myOption[2]->setEnabled(true);
 
-void Pos::goldtest(int gold){
-    for(int i=0;i<3;i++)
-    if(gold<optionCost[i])
-    myOption[i]->setEnabled(false);
-    else if(myOption.last()->isEnabled())
-    myOption[i]->setEnabled(true);
+}
+void Pos::delet(){
+    myOption[0]->setEnabled(true);
+    myOption[1]->setEnabled(true);
+    myOption[2]->setEnabled(false);
 
-}//依次检测当前金额是否可以点击这个选项
+}
 void Pos::draw(QPainter *painter) const
 {
 

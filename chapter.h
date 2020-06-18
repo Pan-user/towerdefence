@@ -11,6 +11,7 @@
 #include"bullet.h"
 #include"tower1.h"
 #include"tower2.h"
+//#include"enemy_plus.h"
 class chapter : public QWidget
 {
     Q_OBJECT
@@ -19,7 +20,7 @@ public:
     void paintEvent(QPaintEvent *);
     void load();//加载位置
     QList<enemy*> getenemy() const{return enemylist;};
-
+    void loadGoldbar();
 private:
     QList<Pos*> poslist;
     QList<basetower*> towerlist;//用基类容器存储不同的塔
@@ -33,11 +34,9 @@ private:
 private slots:
     void updatewhole();
     void delet(Pos* p);
-    void set_tower1(Pos* p);
-    void set_tower2(Pos* p);
+    void set_tower(Pos* p,int type);//p为放塔的位置，type为放什么类型的塔
     void loadwave();
     void loadenemy();
-
 signals:
 
 };

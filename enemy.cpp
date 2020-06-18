@@ -9,8 +9,8 @@ enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),
 }
 void enemy::draw(QPainter*painter) const
 {
-    if (!live)
-       return;
+    //if (!live)
+       //return;
     painter->save();
     QPoint barPoint = now + QPoint(13 , -5);	// 绘制血条
     painter->setBrush(Qt::red);
@@ -24,8 +24,8 @@ void enemy::draw(QPainter*painter) const
 
 }
 void enemy::move(){
-    if (!live)
-       return;
+    //if (!live)
+      // return;
     now.setX(now.x()+(end.x()-start.x())/350);
     now.setY(now.y()+(end.y()-start.y())/350);
     center=QPoint(now.x()+appa.size().width()/2,now.y()+appa.size().height()/2);
@@ -54,7 +54,6 @@ bool enemy::ifalive(){return live;}
 bool enemy::ifhurted(){
     return hurted;
 }
-void enemy::alive(){live=true;}
 void enemy::resethurt(){
     if(hurted)
     hurted=false;

@@ -8,7 +8,7 @@ tower1::tower1(QPoint p1,QString p2):basetower(p1,p2){
     fire=false;
     movespeed = this->startTimer(10);
     firespeed = this->startTimer(500);
-
+    attackrange=150;
  }
 void tower1::draw(QPainter*painter) const
 {
@@ -33,6 +33,8 @@ void tower1::draw(QPainter*painter) const
             }//只锁定最先进入视野的目标
             fire=false;//若没有敌人则关闭开火
         }
+     if(target.empty())
+         fire=false;
 
 }
  void tower1::attack(){

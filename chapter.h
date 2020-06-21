@@ -12,6 +12,8 @@
 #include"tower1.h"
 #include"tower2.h"
 #include"enemy_plus.h"
+#include<QLabel>
+#include"endwindow.h"
 class chapter : public QWidget
 {
     Q_OBJECT
@@ -31,12 +33,17 @@ private:
     int nowhomeHP;
     static int waves;//静态成员变量，波数
     static int gold;//静态成员变量，金币
+    QLabel* noMoney;
+    QTimer *timer1;
+    QTimer *timer2;
 private slots:
     void updatewhole();
     void delet(Pos* p);
     void set_tower(Pos* p,int type);//p为放塔的位置，type为放什么类型的塔
     void loadwave();
-    void loadenemy();
+    void loadenemy1();
+    void loadenemy2();
+    void alertVanish();
 signals:
 
 };

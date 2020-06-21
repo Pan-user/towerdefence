@@ -21,6 +21,7 @@ SOURCES += \
     bullet.cpp \
     button.cpp \
     chapter.cpp \
+    endwindow.cpp \
     enemy.cpp \
     enemy_plus.cpp \
     list.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     bullet.h \
     button.h \
     chapter.h \
+    endwindow.h \
     enemy.h \
     enemy_plus.h \
     list.h \

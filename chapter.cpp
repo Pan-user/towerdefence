@@ -7,13 +7,12 @@
 #include<QTimer>
 #include "test.h"
 #include<QLabel>
-int chapter:: waves=1;int chapter::gold=300;static QLabel* goldbar;
+int chapter:: waves=1;int chapter::gold=100;static QLabel* goldbar;
 chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(980,100),nowhomeHP(1000),maxhomeHP(1000)
 {
-
+    goldbar=new QLabel(this);
     this->setFixedSize(1200,800);
     setWindowTitle("第一关");
-    goldbar=new QLabel(this);
     goldbar->setText("当前金币数: "+QString::number(gold));
     goldbar->setFont(QFont("Microsoft YaHei", 20, QFont::Bold));
     goldbar->setStyleSheet("color:yellow;");
@@ -35,8 +34,8 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
             delet(position);
                 });//删除塔
     }
-    QTimer *timer1 = new QTimer(this);
-    QTimer *timer2 = new QTimer(this);
+    timer1 = new QTimer(this);
+    timer2 = new QTimer(this);
     connect(timer1, SIGNAL(timeout()), this, SLOT(updatewhole()));
     connect(timer2, SIGNAL(timeout()), this, SLOT(loadwave()));
     timer2->start(10000);
@@ -57,15 +56,6 @@ void chapter::load(){
                       new Pos(QPoint(500,690)),
                       new Pos(QPoint(450,690)),
                      };
-                /*QPoint* wp[]={
-                   new QPoint(400,600),
-                   new QPoint(900,600),
-                   new QPoint(900,100)};
-               for(int i=0;i<3;i++)
-                {
-                   waypoint.push_back(wp[i]);
-                    update();
-               }*/
 
             for(int i=0;i<8;i++)
             {
@@ -80,23 +70,38 @@ void chapter::loadGoldbar(){
     goldbar->move(450,150);
     goldbar->show();
 }
-void chapter::loadenemy(){
-    enemy_plus* enemy1=new enemy_plus(p1,p2,":/picture/monster2.png");
+void chapter::loadenemy1(){
+    enemy* enemy1=new enemy(p1,p2,":/picture/monster1.png");
     enemylist.push_back(enemy1);
+
+}
+void chapter::loadenemy2(){
+    enemy_plus* enemy2=new enemy_plus(p1,p2,":/picture/monster2.png");
+    enemylist.push_back(enemy2);
 
 }
 void chapter::loadwave(){
     int i=1;
-    for(i=1;i<=waves;i++)
+    if(waves<=5)
+    for(;i<=waves;i++)
     {
 
-        QTimer::singleShot(i*1000,this,SLOT(loadenemy()));
-
+        QTimer::singleShot(i*1000,this,SLOT(loadenemy1()));
     }
-    waves+=1;
+    else
+        for(;i<=waves;i++)
+        {
+            QTimer::singleShot(i*500,this,SLOT(loadenemy1()));
+            QTimer::singleShot((i-5)*1000,this,SLOT(loadenemy2()));
+
+        }
+    if(waves==11)
+        timer2->stop();
 
 }
-
+void chapter::alertVanish(){
+    noMoney->clear();
+}
 void chapter::set_tower(Pos* p,int type){
     basetower* tower;
     if(type==1)
@@ -112,15 +117,28 @@ void chapter::set_tower(Pos* p,int type){
         loadGoldbar();//改变金币显示
 
     }
+    else
+    {
+        noMoney=new QLabel(this);
+        noMoney->setFont(QFont("Microsoft YaHei", 10, QFont::Bold));
+        noMoney->setStyleSheet("color:red;");
+        noMoney->setText("金币不足!");
+        noMoney->move(p->px()+10,p->py()+10);
+        noMoney->show();
+        QTimer::singleShot(1000,this,SLOT(alertVanish()));
+
+    }
 
 
 }//放塔1
 void chapter::delet(Pos* p){
         foreach(basetower* tow,towerlist)
-         if(tow->getp()==QPoint(p->px(),p->py()))
-             towerlist.removeOne(tow);
+         if(tow->getp()==QPoint(p->px()+20,p->py()+20))
+             towerlist.removeOne(tow);//删除塔
         gold+=50;
-        p->delet();
+        p->delet();//改变菜单选项状态
+        loadGoldbar();//改变金币显示
+
 
 }
 void chapter::paintEvent(QPaintEvent *)
@@ -171,7 +189,7 @@ void chapter::updatewhole(){
             loadGoldbar();
             update();
         }
-        else if(iftouch(ene->nowposition(),p3,0))
+        else if(iftouch(ene->nowposition(),p3,10))
         {
             nowhomeHP-=ene->arrive();
             enemylist.removeOne(ene);
@@ -185,6 +203,23 @@ void chapter::updatewhole(){
 
 
     }
+    if(nowhomeHP<=0)
+    {
+        endwindow* end=new endwindow;
+        timer1->stop();
+        timer2->stop();
+        this->close();
+        end->show();
+    }//基地血量归零则失败
+    if(waves==11&&enemylist.isEmpty())
+    {
+        endwindow* end=new endwindow;
+        timer1->stop();
+        end->set(true);
+        this->close();
+        end->show();
+    }
+
 
     repaint();
 }

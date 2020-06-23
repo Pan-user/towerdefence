@@ -16,6 +16,7 @@ private:
     QList<enemy*> mytarget;//群攻复数个目标
     void timerEvent(QTimerEvent *event);
     int waverange;//攻击波的大小
+    void update();
 signals:
 
 };

@@ -62,3 +62,9 @@ void tower1::timerEvent(QTimerEvent *event){
        this->attack();
     }
 }
+void tower1::update(){
+    damage+=10;
+    firespeed = this->startTimer(300);
+    apparence=QPixmap(":/picture/tower3.png");
+
+}

@@ -7,6 +7,7 @@
 #include<QTimer>
 #include "test.h"
 #include<QLabel>
+#include<QMediaPlayer>
 int chapter:: waves=1;int chapter::gold=100;static QLabel* goldbar;
 chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(980,100),nowhomeHP(1000),maxhomeHP(1000)
 {
@@ -17,7 +18,12 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
     goldbar->setFont(QFont("Microsoft YaHei", 20, QFont::Bold));
     goldbar->setStyleSheet("color:yellow;");
     goldbar->move(450,150);
-    goldbar->show();
+    goldbar->show();//显示金币
+    /*QMediaPlayer* bgm = new QMediaPlayer;
+       bgm->setMedia((QUrl("qrc:/img/game.mp3"));
+
+       bgm->setVolume(30);
+       bgm->play();*/
     load();
     loadwave();
     foreach(Pos* position,poslist)
@@ -33,6 +39,9 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
         connect(position, &Pos::choose_delet, this, [ = ] {
             delet(position);
                 });//删除塔
+        connect(position, &Pos::up, this, [ = ] {
+            upDate(position);
+                });//升级塔
     }
     timer1 = new QTimer(this);
     timer2 = new QTimer(this);
@@ -141,6 +150,12 @@ void chapter::delet(Pos* p){
 
 
 }
+void chapter::upDate(Pos*p){
+    foreach(basetower* tow,towerlist)
+     if(tow->getp()==QPoint(p->px()+20,p->py()+20))
+         tow->update();
+
+}
 void chapter::paintEvent(QPaintEvent *)
 
 {
@@ -185,7 +200,7 @@ void chapter::updatewhole(){
         if(!ene->ifalive())
         {
             enemylist.removeOne(ene);
-            gold+=100;
+            gold+=50;
             loadGoldbar();
             update();
         }

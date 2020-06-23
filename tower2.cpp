@@ -8,7 +8,7 @@ tower2::tower2(QPoint p1,QString p2):basetower(p1,p2){
      cost=150;
      fire=false;
      movespeed = this->startTimer(5);
-     firespeed = this->startTimer(800);
+     firespeed = this->startTimer(1000);
      attackrange=200;
  }
 void tower2::draw(QPainter*painter) const
@@ -80,5 +80,12 @@ void tower2::timerEvent(QTimerEvent *event){
     }
     else if(event->timerId() == firespeed)
         this->attack();
+
+}
+void tower2::update(){
+    damage+=10;
+    movespeed = this->startTimer(4);
+    firespeed = this->startTimer(800);
+    apparence=QPixmap(":/picture/tower4.png");
 
 }

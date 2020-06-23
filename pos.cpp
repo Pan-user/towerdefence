@@ -7,54 +7,57 @@ Pos::Pos(QPoint p1):Button(":/picture/BASE.png"),P(p1),appa(":/picture/BASE.png"
     setContextMenuPolicy(Qt::ActionsContextMenu);
     QAction* set_tower1=new QAction(this);
     QAction* set_tower2=new QAction(this);
+    QAction* update=new QAction(this);
     QAction* delet=new QAction(this);
     set_tower1->setText("放置杰尼龟(-100 c)");
     set_tower2->setText("放置小火龙(-150 c)");
+    update->setText("升级(-200 c)");
     delet->setText("拆除塔(+50 c)");
     delet->setEnabled(false);
+    update->setEnabled(false);
     connect(set_tower1, &QAction::triggered, this, [ = ] {
-        //delet->setEnabled(true);
-        //set_tower1->setEnabled(false);
-        //set_tower2->setEnabled(false);
-        emit choos_tower1();//放塔1并激活删除选项
+        emit choos_tower1();//放塔1
             });
     connect(set_tower2, &QAction::triggered, this, [ = ] {
-        //delet->setEnabled(true);
-        //set_tower1->setEnabled(false);
-        //set_tower2->setEnabled(false);
-        emit choos_tower2();//放塔2并激活删除选项
+
+        emit choos_tower2();//放塔2
             });
     connect(delet, &QAction::triggered, this, [ = ] {
-        //set_tower1->setEnabled(true);
-        //set_tower2->setEnabled(true);
-        emit choose_delet();//删除塔并激活放塔选项
+
+        emit choose_delet();//删除塔
+            });
+    connect(update, &QAction::triggered, this, [ = ] {
+        emit up();//升级
             });
     addAction(set_tower1);
     addAction(set_tower2);
+    addAction(update);
     addAction(delet);
     myOption.push_back(set_tower1);
     myOption.push_back(set_tower2);
+    myOption.push_back(update);
     myOption.push_back(delet);
     }
-/*void Pos::change(int a){
-    if(myOption[a]->isEnabled())
-        myOption[a]->setEnabled(false);
-    else
-        myOption[a]->setEnabled(true);
-}//改变菜单栏的可用状态*/
+
 void Pos::set(){
     myOption[0]->setEnabled(false);
     myOption[1]->setEnabled(false);
     myOption[2]->setEnabled(true);
+    myOption[3]->setEnabled(true);
+
 
 }
 void Pos::delet(){
     myOption[0]->setEnabled(true);
     myOption[1]->setEnabled(true);
     myOption[2]->setEnabled(false);
+    myOption[3]->setEnabled(false);
 
 
 }
+//void Pos::up(){
+    //myOption[2]->setEnabled(false);
+//}
 void Pos::draw(QPainter *painter) const
 {
 

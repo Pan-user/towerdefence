@@ -19,7 +19,8 @@ public:
     bool iffire();//检测是否能开火
     virtual void get_target(QList<enemy*> target);
     int get_cost();//外界得知价格的接口
-    virtual void attack()=0;//利用虚函数动态绑定，塔的攻击和锁定目标的实现在具体的子类中进行
+    virtual void attack()=0;//纯虚函数，塔的攻击和锁定目标的实现在具体的子类中
+    virtual void update()=0;//纯虚函数，塔的升级在具体子类中进行
 protected:
     QPoint position;
     QPoint center;

@@ -24,6 +24,7 @@ private:
 signals:
     void choos_tower1();
     void choos_tower2();
+    void up();
     void choose_delet();
 };
 #endif // POS_H

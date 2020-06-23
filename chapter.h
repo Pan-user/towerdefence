@@ -40,6 +40,7 @@ private slots:
     void updatewhole();
     void delet(Pos* p);
     void set_tower(Pos* p,int type);//p为放塔的位置，type为放什么类型的塔
+    void upDate(Pos*p);
     void loadwave();
     void loadenemy1();
     void loadenemy2();

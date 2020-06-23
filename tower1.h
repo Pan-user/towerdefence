@@ -15,6 +15,7 @@ private:
     QList<Bullet*> mybullet;
     enemy* mytarget;//只有一个目标
     void timerEvent(QTimerEvent *event);
+    void update();
 signals:
 };
 

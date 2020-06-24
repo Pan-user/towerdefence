@@ -22,8 +22,8 @@ void tower1::draw(QPainter*painter) const
      painter->restore();
 }
  void tower1::get_target(QList<enemy *> target){
-        //遍历敌人,判断是否有敌人在攻击范围内
-     foreach (enemy *ene, target)
+     fire=false;//重置开火状态
+     foreach (enemy *ene, target)//遍历敌人,判断是否有敌人在攻击范围内
         {
             if (iftouch(center,ene->centerposition(),attackrange))
             {
@@ -31,10 +31,7 @@ void tower1::draw(QPainter*painter) const
                 fire=true;
                 break;
             }//只锁定最先进入视野的目标
-            fire=false;//若没有敌人则关闭开火
         }
-     if(target.empty())
-         fire=false;
 
 }
  void tower1::attack(){
@@ -63,7 +60,7 @@ void tower1::timerEvent(QTimerEvent *event){
     }
 }
 void tower1::update(){
-    damage+=10;
+    damage+=50;
     firespeed = this->startTimer(300);
     apparence=QPixmap(":/picture/tower3.png");
 

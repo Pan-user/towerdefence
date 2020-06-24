@@ -9,7 +9,7 @@ tower2::tower2(QPoint p1,QString p2):basetower(p1,p2){
      fire=false;
      movespeed = this->startTimer(5);
      firespeed = this->startTimer(1000);
-     attackrange=200;
+     attackrange=150;
  }
 void tower2::draw(QPainter*painter) const
 {
@@ -20,8 +20,9 @@ void tower2::draw(QPainter*painter) const
      painter->restore();
 }
  void tower2::get_target(QList<enemy *> target){
-     //遍历敌人,判断是否有敌人在攻击范围内
-     foreach (enemy *ene, target)
+     //mytarget.clear();//遍历前清除旧目标
+     fire=false;//重置开火状态
+     foreach (enemy *ene, target)//遍历敌人,判断是否有敌人在攻击范围内
         {
             if (iftouch(center,ene->centerposition(),attackrange))
             {
@@ -29,18 +30,10 @@ void tower2::draw(QPainter*painter) const
                 fire=true;
             }
                                 //锁定所有进入视野的目标
-     foreach(enemy *ene,mytarget)
-         if (!iftouch(center,ene->centerposition(),attackrange))
-         {
-             mytarget.removeOne(ene);
 
-         }//删去所有离开视野的敌人
-      if(mytarget.empty()||target.empty())
-                fire=false;
-            //若没有敌人则关闭开火
-        }
 
 }
+ }
  void tower2::attack(){
      if(fire)
      {
@@ -83,7 +76,8 @@ void tower2::timerEvent(QTimerEvent *event){
 
 }
 void tower2::update(){
-    damage+=10;
+    damage+=20;
+    attackrange+=50;
     movespeed = this->startTimer(4);
     firespeed = this->startTimer(800);
     apparence=QPixmap(":/picture/tower4.png");

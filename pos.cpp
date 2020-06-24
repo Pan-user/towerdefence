@@ -27,7 +27,7 @@ Pos::Pos(QPoint p1):Button(":/picture/BASE.png"),P(p1),appa(":/picture/BASE.png"
         emit choose_delet();//删除塔
             });
     connect(update, &QAction::triggered, this, [ = ] {
-        emit up();//升级
+        emit choose_up();//升级
             });
     addAction(set_tower1);
     addAction(set_tower2);
@@ -55,9 +55,9 @@ void Pos::delet(){
 
 
 }
-//void Pos::up(){
-    //myOption[2]->setEnabled(false);
-//}
+void Pos::up(){
+    myOption[2]->setEnabled(false);
+}
 void Pos::draw(QPainter *painter) const
 {
 

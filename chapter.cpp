@@ -13,17 +13,13 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
 {
     goldbar=new QLabel(this);
     this->setFixedSize(1200,800);
-    setWindowTitle("第一关");
+    setWindowTitle("关卡");
     goldbar->setText("当前金币数: "+QString::number(gold));
     goldbar->setFont(QFont("Microsoft YaHei", 20, QFont::Bold));
     goldbar->setStyleSheet("color:yellow;");
     goldbar->move(450,150);
     goldbar->show();//显示金币
-    /*QMediaPlayer* bgm = new QMediaPlayer;
-       bgm->setMedia((QUrl("qrc:/img/game.mp3"));
 
-       bgm->setVolume(30);
-       bgm->play();*/
     load();
     loadwave();
     foreach(Pos* position,poslist)
@@ -39,7 +35,7 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
         connect(position, &Pos::choose_delet, this, [ = ] {
             delet(position);
                 });//删除塔
-        connect(position, &Pos::up, this, [ = ] {
+        connect(position, &Pos::choose_up, this, [ = ] {
             upDate(position);
                 });//升级塔
     }
@@ -47,7 +43,7 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
     timer2 = new QTimer(this);
     connect(timer1, SIGNAL(timeout()), this, SLOT(updatewhole()));
     connect(timer2, SIGNAL(timeout()), this, SLOT(loadwave()));
-    timer2->start(10000);
+    timer2->start(15000);
     timer1->start(10);
 }
 
@@ -106,11 +102,12 @@ void chapter::loadwave(){
         }
     if(waves==11)
         timer2->stop();
+    waves++;
 
 }
 void chapter::alertVanish(){
     noMoney->clear();
-}
+}//金币不足警告消失
 void chapter::set_tower(Pos* p,int type){
     basetower* tower;
     if(type==1)
@@ -151,9 +148,26 @@ void chapter::delet(Pos* p){
 
 }
 void chapter::upDate(Pos*p){
-    foreach(basetower* tow,towerlist)
-     if(tow->getp()==QPoint(p->px()+20,p->py()+20))
-         tow->update();
+    if(gold>=200)
+    {foreach(basetower* tow,towerlist)
+        if(tow->getp()==QPoint(p->px()+20,p->py()+20))
+                tow->update();
+           gold-=200;
+           p->up();//改变菜单选项状态
+           loadGoldbar();//改变金币显示
+
+    }
+    else{
+        noMoney=new QLabel(this);
+        noMoney->setFont(QFont("Microsoft YaHei", 10, QFont::Bold));
+        noMoney->setStyleSheet("color:red;");
+        noMoney->setText("金币不足!");
+        noMoney->move(p->px()+10,p->py()+10);
+        noMoney->show();
+        QTimer::singleShot(1000,this,SLOT(alertVanish()));
+
+
+    }
 
 }
 void chapter::paintEvent(QPaintEvent *)

@@ -17,6 +17,7 @@ public:
     //void change(int a);//判断是否能放塔并改变放塔状态
     void set();//放塔操作对应的菜单选项改变
     void delet();//拆塔操作对应的菜单选项改变
+    void up();//升级对应的菜单选项改变
 private:
     QPoint	P;	//坐标
     QPixmap appa;
@@ -24,7 +25,7 @@ private:
 signals:
     void choos_tower1();
     void choos_tower2();
-    void up();
     void choose_delet();
+    void choose_up();
 };
 #endif // POS_H

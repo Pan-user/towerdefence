@@ -14,6 +14,8 @@
 #include"enemy_plus.h"
 #include<QLabel>
 #include"endwindow.h"
+#include<QMediaPlayer>
+#include<QMediaPlaylist>
 class chapter : public QWidget
 {
     Q_OBJECT
@@ -36,6 +38,7 @@ private:
     QLabel* noMoney;
     QTimer *timer1;
     QTimer *timer2;
+    QMediaPlayer* bgmplayer;
 private slots:
     void updatewhole();
     void delet(Pos* p);

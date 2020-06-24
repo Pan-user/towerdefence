@@ -7,7 +7,6 @@
 #include<QTimer>
 #include "test.h"
 #include<QLabel>
-#include<QMediaPlayer>
 int chapter:: waves=1;int chapter::gold=100;static QLabel* goldbar;
 chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(980,100),nowhomeHP(1000),maxhomeHP(1000)
 {
@@ -19,7 +18,20 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
     goldbar->setStyleSheet("color:yellow;");
     goldbar->move(450,150);
     goldbar->show();//显示金币
+    bgmplayer = new QMediaPlayer(this);
+    bgmplayer->setVolume(50);
 
+    /*QUrl bgmpath=QUrl::fromLocalFile(":/music/bgm.mp3");
+
+    QMediaContent music(bgmpath);
+    QMediaPlaylist* musicList= new QMediaPlaylist ();
+    musicList->addMedia(music);
+    musicList->setCurrentIndex(0);
+    musicList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    bgmplayer->setPlaylist(musicList);
+    if(bgmplayer)
+    bgmplayer->play();
+    */
     load();
     loadwave();
     foreach(Pos* position,poslist)

@@ -22,8 +22,8 @@ public:
     virtual void attack()=0;//纯虚函数，塔的攻击和锁定目标的实现在具体的子类中
     virtual void update()=0;//纯虚函数，塔的升级在具体子类中进行
 protected:
-    QPoint position;
-    QPoint center;
+    const QPoint position;
+     QPoint center;
     QPixmap apparence;
     int cost;
     int attackrange;

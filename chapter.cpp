@@ -20,9 +20,11 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
     goldbar->show();//显示金币
     bgmplayer = new QMediaPlayer(this);
     bgmplayer->setVolume(50);
-
-    /*QUrl bgmpath=QUrl::fromLocalFile(":/music/bgm.mp3");
-
+   /* QMediaPlayer * player = new QMediaPlayer;
+    player->setMedia(QUrl("qrc:/music/bgm.mp3"));
+    player->setVolume(30);
+    player->play();*/
+    QUrl bgmpath=QUrl("qrc:/music/hdl.mp3");
     QMediaContent music(bgmpath);
     QMediaPlaylist* musicList= new QMediaPlaylist ();
     musicList->addMedia(music);
@@ -31,7 +33,7 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
     bgmplayer->setPlaylist(musicList);
     if(bgmplayer)
     bgmplayer->play();
-    */
+
     load();
     loadwave();
     foreach(Pos* position,poslist)

@@ -11,6 +11,7 @@ public:
     void get_target(QList<enemy*> target);
     void attack();
     void draw(QPainter*painter) const;
+
 private:
     QList<Bullet*> mybullet;
     enemy* mytarget;//只有一个目标

@@ -18,16 +18,14 @@ public:
     void setCurrentPos(QPoint pos);
     QPoint currentPos() const;
     bool ifhit();
-private slots:
-
 private:
     const QPoint	_start;
     QPoint	_end;
-     QPixmap   appa;
-    QPoint			now;
-    int				_damage;
-    enemy* _target;
-    bool hit;
+    QPixmap appa;
+    QPoint	now;
+    int		_damage;
+    enemy*  _target;
+    bool    hit;
 
 
 signals:

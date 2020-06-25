@@ -12,6 +12,6 @@
         <file>picture/monster2.png</file>
         <file>picture/start.png</file>
         <file>picture/tower4.png</file>
-        <file>music/bgm.mp3</file>
+        <file>music/hdl.mp3</file>
     </qresource>
 </RCC>

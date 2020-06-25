@@ -30,7 +30,6 @@ private:
     QList<basetower*> towerlist;//用基类容器存储不同的塔
     QList<enemy*> enemylist;//存储敌人
     QPoint p1,p2,p3;
-    QPoint* mark;
     int maxhomeHP;
     int nowhomeHP;
     static int waves;//静态成员变量，波数

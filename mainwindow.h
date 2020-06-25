@@ -5,7 +5,6 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include<QPushButton>
-#include<list.h>
 #include "Pos.h"
 
 QT_BEGIN_NAMESPACE

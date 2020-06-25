@@ -24,7 +24,6 @@ SOURCES += \
     endwindow.cpp \
     enemy.cpp \
     enemy_plus.cpp \
-    list.cpp \
     main.cpp \
     mainwindow.cpp \
     tower1.cpp \
@@ -39,7 +38,6 @@ HEADERS += \
     endwindow.h \
     enemy.h \
     enemy_plus.h \
-    list.h \
     mainwindow.h \
     test.h \
     tower1.h \

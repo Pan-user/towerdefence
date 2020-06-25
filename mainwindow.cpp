@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include"list.h"
 #include"chapter.h"
 #include <QPainter>
 #include <QPaintEvent>
@@ -16,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
     Button *Start=new Button(":/picture/start.png");
     Start->setParent(this);
     Start->move(500,400);
-    list* main=new list;
     connect(Start,&QPushButton::clicked,this,[=](){
         chapter* chapter1=new chapter;
         this->close();

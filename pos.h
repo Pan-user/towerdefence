@@ -14,7 +14,6 @@ public:
     void draw(QPainter *painter) const;
     int px();
     int py();
-    //void change(int a);//判断是否能放塔并改变放塔状态
     void set();//放塔操作对应的菜单选项改变
     void delet();//拆塔操作对应的菜单选项改变
     void up();//升级对应的菜单选项改变

@@ -2,8 +2,8 @@
 
 enemy_plus::enemy_plus(QPoint st,QPoint en,QString path):enemy(st,en,path)
 {
-    maxHP=200;
-    nowHP=200;
+    maxHP=300;
+    nowHP=300;
 }
 void enemy_plus::hitted(int damage){
     if(nowHP>maxHP/2)

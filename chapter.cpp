@@ -107,12 +107,15 @@ void chapter::loadwave(){
         QTimer::singleShot(i*1000,this,SLOT(loadenemy1()));
     }
     else
-        for(;i<=waves;i++)
-        {
+    {
+        for(;i<=waves;i++){
             QTimer::singleShot(i*500,this,SLOT(loadenemy1()));
-            QTimer::singleShot((i-5)*1000,this,SLOT(loadenemy2()));
 
         }
+        for(i=1;i<=waves-5;i++){
+            QTimer::singleShot(i*800,this,SLOT(loadenemy2()));
+        }
+    }
     if(waves==11)
         timer2->stop();
     waves++;
@@ -243,12 +246,14 @@ void chapter::updatewhole(){
         timer2->stop();
         this->close();
         end->show();
+        bgmplayer->stop();
     }//基地血量归零则失败
     if(waves==11&&enemylist.isEmpty()){
         endwindow* end=new endwindow;
         timer1->stop();
         end->set(true);
         this->close();
+        bgmplayer->stop();
         end->show();
     }
     repaint();

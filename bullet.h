@@ -12,10 +12,8 @@ class Bullet : public QObject
 public:
     Bullet(QPoint start, QPoint end, int damage,
            QString path,enemy* target);
-
     void draw(QPainter *painter) const;
     void move();
-    void setCurrentPos(QPoint pos);
     QPoint currentPos() const;
     bool ifhit();
 private:

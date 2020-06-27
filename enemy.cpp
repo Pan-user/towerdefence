@@ -1,6 +1,6 @@
 #include "enemy.h"
 
-enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(100),nowHP(100),live(true),damage(50){
+enemy::enemy(QPoint st,QPoint en,QString path):QObject(0),appa(path),maxHP(150),nowHP(150),live(true),damage(100){
     this->now=st;
     this->start=st;
     this->end=en;

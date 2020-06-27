@@ -18,9 +18,6 @@ void Bullet::move(){
     now.setX(now.x()+deltax);
     now.setY(now.y()+deltay);
 };
-void Bullet::setCurrentPos(QPoint pos){
-    now=pos;
-};
 QPoint Bullet::currentPos() const{
     return now;
 };

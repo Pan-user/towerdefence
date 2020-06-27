@@ -5,6 +5,7 @@
 #include <QPaintEvent>
 #include<Qpixmap>
 #include<button.h>
+#include<QPushButton>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     Button *Start=new Button(":/picture/start.png");
     Start->setParent(this);
     Start->move(500,400);
+    QPushButton *start=new QPushButton(":/picture/start.png");
     connect(Start,&QPushButton::clicked,this,[=](){
         chapter* chapter1=new chapter;
         this->close();

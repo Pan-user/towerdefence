@@ -11,7 +11,6 @@ public:
     void get_target(QList<enemy*> target);
     void attack();
     void draw(QPainter*painter) const;
-    bool ifhit(QPoint,QPoint,float);
 private:
     QList<enemy*> mytarget;//群攻复数个目标
     void timerEvent(QTimerEvent *event);

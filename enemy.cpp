@@ -31,13 +31,13 @@ void enemy::trans(QPoint target){
     start=end;
     end=target;
 }
-QPoint enemy::nowposition(){
+QPoint enemy::nowposition() const{
     return(now);
 }
-QPoint enemy::endposition(){
+QPoint enemy::endposition() const{
     return(end);
 }
-QPoint enemy::centerposition(){
+QPoint enemy::centerposition() const{
     return(center);
 }
 void enemy::hitted(int damage){
@@ -45,10 +45,10 @@ void enemy::hitted(int damage){
     if(nowHP<=0)
     live=false;
 }
-int enemy::arrive(){return damage;}//走入基地造成伤害
-bool enemy::ifalive(){return live;}
+int enemy::arrive() const{return damage;}//走入基地造成伤害
+bool enemy::ifalive() const{return live;}
 
-bool enemy::ifhurted(){
+bool enemy::ifhurted() const{
     return hurted;
 }
 void enemy::resethurt(){

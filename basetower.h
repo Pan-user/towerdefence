@@ -13,7 +13,7 @@ class basetower : public QObject
 public:
     basetower(QPoint p1,QString p2);
     //用点和路径初始化塔的位置和外貌
-    virtual void draw(QPainter*painter) const;
+    virtual void draw(QPainter*painter) const=0;
     QPoint getp();
     QPoint getcenter();
     bool iffire();//检测是否能开火
@@ -23,7 +23,7 @@ public:
     virtual void update()=0;//纯虚函数，塔的升级在具体子类中进行
 protected:
     const QPoint position;
-     QPoint center;
+    QPoint center;
     QPixmap apparence;
     int cost;
     int attackrange;

@@ -13,14 +13,14 @@ public:
     enemy(QPoint st,QPoint en,QString path);
     virtual void draw(QPainter*painter) ;
     virtual void move();
-    void trans(QPoint target);
-    QPoint nowposition();
-    QPoint endposition();
-    QPoint centerposition();
     virtual void hitted(int damage);
-    bool ifalive();
-    int arrive();
-    bool ifhurted();
+    void trans(QPoint target);
+    QPoint nowposition() const;
+    QPoint endposition() const;
+    QPoint centerposition() const;
+    bool ifalive() const;
+    bool ifhurted() const;
+    int arrive() const;
     void resethurt();
 
 protected:

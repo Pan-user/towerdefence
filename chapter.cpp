@@ -7,7 +7,7 @@
 #include<QTimer>
 #include "test.h"
 #include<QLabel>
-int chapter:: waves=1;int chapter::gold=100;static QLabel* goldbar;
+int chapter:: waves=1;int chapter::gold=200;static QLabel* goldbar;
 chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(980,100),nowhomeHP(1000),maxhomeHP(1000)
 {
     goldbar=new QLabel(this);
@@ -17,13 +17,10 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
     goldbar->setFont(QFont("Microsoft YaHei", 20, QFont::Bold));
     goldbar->setStyleSheet("color:yellow;");
     goldbar->move(450,150);
-    goldbar->show();//显示金币
+    goldbar->show();
+    //显示金币
     bgmplayer = new QMediaPlayer(this);
     bgmplayer->setVolume(50);
-   /* QMediaPlayer * player = new QMediaPlayer;
-    player->setMedia(QUrl("qrc:/music/bgm.mp3"));
-    player->setVolume(30);
-    player->play();*/
     QUrl bgmpath=QUrl("qrc:/music/hdl.mp3");
     QMediaContent music(bgmpath);
     QMediaPlaylist* musicList= new QMediaPlaylist ();
@@ -33,9 +30,11 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
     bgmplayer->setPlaylist(musicList);
     if(bgmplayer)
     bgmplayer->play();
-
+    //播放音乐
     load();
+    //加载塔基
     loadwave();
+    //加载敌人
     foreach(Pos* position,poslist)
     {
         position->setParent(this);
@@ -217,23 +216,14 @@ void chapter::paintEvent(QPaintEvent *)
 
 }
 void chapter::updatewhole(){
-
-
-    foreach(basetower* tow,towerlist)
-    {
-        tow->get_target(enemylist);
-    }
-    foreach(enemy* ene,enemylist)
-    {
-        if(!ene->ifalive())
-        {
+    foreach(enemy* ene,enemylist){
+        if(!ene->ifalive()){
             enemylist.removeOne(ene);
             gold+=50;
             loadGoldbar();
             update();
         }
-        else if(iftouch(ene->nowposition(),p3,10))
-        {
+        else if(iftouch(ene->nowposition(),p3,10)){
             nowhomeHP-=ene->arrive();
             enemylist.removeOne(ene);
 
@@ -243,26 +233,23 @@ void chapter::updatewhole(){
             ene->trans(p3);
             ene->move();
         }
-
-
     }
-    if(nowhomeHP<=0)
-    {
+    foreach(basetower* tow,towerlist){
+        tow->get_target(enemylist);
+    }
+    if(nowhomeHP<=0){
         endwindow* end=new endwindow;
         timer1->stop();
         timer2->stop();
         this->close();
         end->show();
     }//基地血量归零则失败
-    if(waves==11&&enemylist.isEmpty())
-    {
+    if(waves==11&&enemylist.isEmpty()){
         endwindow* end=new endwindow;
         timer1->stop();
         end->set(true);
         this->close();
         end->show();
     }
-
-
     repaint();
 }

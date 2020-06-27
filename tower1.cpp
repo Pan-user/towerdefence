@@ -16,10 +16,6 @@ void tower1::draw(QPainter*painter) const
     foreach (Bullet* one,mybullet) {
        one->draw(painter);
     }
-    painter->save();
-    painter->setPen(Qt::white);
-    painter->drawEllipse(center, attackrange, attackrange);
-     painter->restore();
 }
  void tower1::get_target(QList<enemy *> target){
      fire=false;//重置开火状态

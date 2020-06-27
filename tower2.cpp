@@ -17,10 +17,9 @@ void tower2::draw(QPainter*painter) const
     painter->save();
     painter->setPen(QPen(Qt::red, 5, Qt::DashDotLine, Qt::RoundCap));
     painter->drawEllipse(center, waverange, waverange);
-     painter->restore();
+    painter->restore();
 }
  void tower2::get_target(QList<enemy *> target){
-     //mytarget.clear();//遍历前清除旧目标
      fire=false;//重置开火状态
      foreach (enemy *ene, target)//遍历敌人,判断是否有敌人在攻击范围内
         {
@@ -43,16 +42,7 @@ void tower2::draw(QPainter*painter) const
          waverange=1;
      }//若有敌人释放攻击波
  }
-bool tower2::ifhit(QPoint p1,QPoint p2,float range){
-     int ifx = p1.x() - p2.x();
-         int ify = p1.y() - p2.y();
-         float distance = sqrt(ifx * ifx + ify * ify);
-         if (distance <= (range+1)&&distance>=(range-1))
-             return true;
-         else
-             return false;
 
-}
 void tower2::timerEvent(QTimerEvent *event){
     if ((event->timerId() == movespeed)&&(waverange!=0))
     {

@@ -9,7 +9,6 @@ bool basetower::iffire(){
 
          return fire;
  }
-void basetower::get_target(QList<enemy*> target){}
 int basetower::get_cost(){return cost;}
 
 

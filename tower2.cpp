@@ -66,7 +66,7 @@ void tower2::timerEvent(QTimerEvent *event){
 
 }
 void tower2::update(){
-    damage+=20;
+    damage+=10;
     attackrange+=50;
     movespeed = this->startTimer(4);
     firespeed = this->startTimer(800);

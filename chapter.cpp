@@ -7,8 +7,8 @@
 #include<QTimer>
 #include "test.h"
 #include<QLabel>
-int chapter:: waves=1;int chapter::gold=200;static QLabel* goldbar;
-chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(980,100),nowhomeHP(1000),maxhomeHP(1000)
+int chapter:: waves=1;int chapter::gold=300;static QLabel* goldbar;
+chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(980,100),maxhomeHP(1000),nowhomeHP(1000)
 {
     goldbar=new QLabel(this);
     this->setFixedSize(1200,800);
@@ -56,7 +56,7 @@ chapter::chapter(QWidget *parent) : QWidget(parent),p1(400,600),p2(980,600),p3(9
     timer2 = new QTimer(this);
     connect(timer1, SIGNAL(timeout()), this, SLOT(updatewhole()));
     connect(timer2, SIGNAL(timeout()), this, SLOT(loadwave()));
-    timer2->start(15000);
+    timer2->start(10000);
     timer1->start(10);
 }
 
@@ -94,12 +94,17 @@ void chapter::loadenemy1(){
 
 }
 void chapter::loadenemy2(){
-    enemy_plus* enemy2=new enemy_plus(p1,p2,":/picture/monster2.png");
+    enemy* enemy2=new enemy_plus(p1,p2,":/picture/monster2.png");
     enemylist.push_back(enemy2);
 
 }
 void chapter::loadwave(){
     int i=1;
+    if(waves==11)
+    {
+        timer2->stop();
+        return;
+    }
     if(waves<=5)
     for(;i<=waves;i++)
     {
@@ -109,15 +114,13 @@ void chapter::loadwave(){
     else
     {
         for(;i<=waves;i++){
-            QTimer::singleShot(i*500,this,SLOT(loadenemy1()));
+            QTimer::singleShot(i*1000,this,SLOT(loadenemy1()));
 
         }
-        for(i=1;i<=waves-5;i++){
+       for(i=1;i<=waves-5;i++){
             QTimer::singleShot(i*800,this,SLOT(loadenemy2()));
         }
     }
-    if(waves==11)
-        timer2->stop();
     waves++;
 
 }
@@ -220,11 +223,12 @@ void chapter::paintEvent(QPaintEvent *)
 }
 void chapter::updatewhole(){
     foreach(enemy* ene,enemylist){
-        if(!ene->ifalive()){
+     {
+            ene->move();
+            if(!ene->ifalive()){
             enemylist.removeOne(ene);
-            gold+=50;
+            gold+=25;
             loadGoldbar();
-            update();
         }
         else if(iftouch(ene->nowposition(),p3,10)){
             nowhomeHP-=ene->arrive();
@@ -234,9 +238,11 @@ void chapter::updatewhole(){
         else {
             if(iftouch(ene->nowposition(),ene->endposition(),2))
             ene->trans(p3);
-            ene->move();
+
         }
     }
+    }
+
     foreach(basetower* tow,towerlist){
         tow->get_target(enemylist);
     }
@@ -245,6 +251,7 @@ void chapter::updatewhole(){
         timer1->stop();
         timer2->stop();
         this->close();
+        end->set(false);
         end->show();
         bgmplayer->stop();
     }//基地血量归零则失败
